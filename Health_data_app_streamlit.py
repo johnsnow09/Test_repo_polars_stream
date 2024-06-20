@@ -43,7 +43,7 @@ def v_spacer(height, sb=False) -> None:
 
 @st.cache_resource
 def load_pivot_data():
-    df_pivot = pl.read_parquet(r"V:\1. R & Python work\Python\2.AnalytixLabs Practice\Health Viny\df_pivot.parquet")
+    df_pivot = pl.read_parquet(r"df_pivot.parquet")
     return df_pivot
 
 
@@ -52,7 +52,7 @@ df_pivot = load_pivot_data()
 
 @st.cache_resource
 def load_melt_data():
-    df = pl.read_parquet(r"V:\1. R & Python work\Python\2.AnalytixLabs Practice\Health Viny\df_melt.parquet")
+    df = pl.read_parquet(r"df_melt.parquet")
     return df
 
 
