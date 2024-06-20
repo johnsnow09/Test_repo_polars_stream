@@ -100,7 +100,7 @@ with st.sidebar:
 
 
 st.subheader('Test data')
-st.dataframe(Filtered_Data, width=1800)
+st.dataframe(Filtered_Data.to_pandas(), width=1800)
 
 
 ############################## PLOT ##############################
@@ -129,5 +129,5 @@ st.plotly_chart(fig2,use_container_width=True, config = config)
 
 
 st.write('Raw Timelined Blood Test Data')
-st.dataframe(df_pivot, width=1800)
+st.dataframe(df_pivot.to_pandas(), width=1800)
 
