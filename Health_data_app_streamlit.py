@@ -138,7 +138,7 @@ st.divider()
 
 
 
-st.subheader('TSH only timeline data',divider='rainbow')
+st.subheader('TSH only timeline data')
 ############################## TSH PLOT ##############################
 plot_data2 = TSH_only_combined.to_pandas()
 Lower_range2 = plot_data2.iloc[0,2]
