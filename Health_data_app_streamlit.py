@@ -132,7 +132,7 @@ fig2 = (px.scatter(plot_data,
 
 
 st.plotly_chart(fig2,use_container_width=True, config = config)
-
+st.divider()
 
 ############################## PLOT ##############################
 
@@ -159,7 +159,7 @@ fig22 = (px.scatter(plot_data2,
 
 
 st.plotly_chart(fig22,use_container_width=True, config = config)
-
+st.divider()
 
 ############################## TSH PLOT ##############################
 
@@ -168,8 +168,8 @@ st.plotly_chart(fig22,use_container_width=True, config = config)
 
 ############################## RAW DATA ##############################
 
-st.subheader('Complete Raw Timelined Blood Test Data',divider='rainbow')
+st.subheader('Complete Raw Timelined Blood Test Data')
 st.dataframe(df_pivot.to_pandas(), width=1800)
-
+st.divider()
 ############################## RAW DATA ##############################
 
