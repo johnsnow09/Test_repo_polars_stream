@@ -128,6 +128,7 @@ fig2 = (px.scatter(plot_data,
               .add_traces(fig1.data)
               .add_hline(y=Upper_range, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range, line_width=2, line_dash="dash", line_color="red")
+              .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
               )
 
 
