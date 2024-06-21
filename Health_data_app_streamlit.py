@@ -57,6 +57,15 @@ def load_melt_data():
 
 
 df = load_melt_data()
+
+
+@st.cache_resource
+def load_tsh_data():
+    tsh_df = pl.read_parquet(r"TSH_only_combined.parquet")
+    return tsh_df
+
+
+TSH_only_combined = load_tsh_data()
 ############################## GET DATA ##############################
 
 
@@ -128,6 +137,39 @@ st.plotly_chart(fig2,use_container_width=True, config = config)
 ############################## PLOT ##############################
 
 
+
+
+############################## TSH PLOT ##############################
+plot_data2 = TSH_only_combined.to_pandas()
+Lower_range2 = plot_data2.iloc[0,2]
+Upper_range2 = plot_data2.iloc[0,3]
+
+fig21 = px.line(plot_data2, x='Date', y='Value'
+            #   ,labels={'status_perf_end_prop_cum':'Cumulative Default'}
+              )
+
+fig22 = (px.scatter(plot_data2, 
+                  x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
+              title = 'TSH Blood Test <br><sup>(With More Test Results)</sup>')
+              .add_traces(fig21.data)
+              .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
+              .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
+              .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+              )
+
+
+st.plotly_chart(fig22,use_container_width=True, config = config)
+
+
+############################## TSH PLOT ##############################
+
+
+
+
+############################## RAW DATA ##############################
+
 st.write('Raw Timelined Blood Test Data')
 st.dataframe(df_pivot.to_pandas(), width=1800)
+
+############################## RAW DATA ##############################
 
