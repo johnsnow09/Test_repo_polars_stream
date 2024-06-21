@@ -108,7 +108,7 @@ with st.sidebar:
 
 
 
-st.subheader('Test data')
+st.subheader('Test Report Selected data')
 st.dataframe(Filtered_Data.to_pandas(), width=1800)
 
 
@@ -138,7 +138,7 @@ st.plotly_chart(fig2,use_container_width=True, config = config)
 
 
 
-
+st.subheader('TSH only timeline data')
 ############################## TSH PLOT ##############################
 plot_data2 = TSH_only_combined.to_pandas()
 Lower_range2 = plot_data2.iloc[0,2]
