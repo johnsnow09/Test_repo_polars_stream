@@ -108,7 +108,7 @@ with st.sidebar:
 
 
 
-st.subheader('Test Report Selected data')
+st.subheader('Test Report Selected data',divider='rainbow')
 st.dataframe(Filtered_Data.to_pandas(), width=1800)
 
 
@@ -138,7 +138,7 @@ st.plotly_chart(fig2,use_container_width=True, config = config)
 
 
 
-st.subheader('TSH only timeline data')
+st.subheader('TSH only timeline data',divider='rainbow')
 ############################## TSH PLOT ##############################
 plot_data2 = TSH_only_combined.to_pandas()
 Lower_range2 = plot_data2.iloc[0,2]
@@ -168,7 +168,7 @@ st.plotly_chart(fig22,use_container_width=True, config = config)
 
 ############################## RAW DATA ##############################
 
-st.write('Raw Timelined Blood Test Data')
+st.subheader('Complete Raw Timelined Blood Test Data',divider='rainbow')
 st.dataframe(df_pivot.to_pandas(), width=1800)
 
 ############################## RAW DATA ##############################
