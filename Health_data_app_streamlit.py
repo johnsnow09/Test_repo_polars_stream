@@ -174,3 +174,26 @@ st.dataframe(df_pivot.to_pandas(), width=1800)
 st.divider()
 ############################## RAW DATA ##############################
 
+
+
+
+############################## TEST DIFF PLOT ##############################
+df_difference_bef_aftr = (df
+               .with_columns(pl.when(pl.col('Date') < date(2023,10,17))
+               .then(pl.lit("Before")).otherwise(pl.lit("After")).alias("Treatment_status"))
+               .group_by(['Category','Treatment_status']).agg(pl.col('Value').mean())
+               .pivot(index='Category',columns='Treatment_status',values='Value')
+               .with_columns(((pl.col('After')-pl.col('Before'))*100/pl.col('Before')).alias('Diff_%'))
+               .with_columns(pl.col('Diff_%').abs().alias('Diff_%_abs'))
+               .filter(pl.col('Diff_%').is_not_null())
+               .filter(pl.col('Diff_%').is_not_nan())
+               .sort(pl.col('Diff_%'),descending=True)
+        )
+
+fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 800,
+       title="Mean Difference in test Before & After Treatment").update_yaxes(autorange="reversed")
+
+st.subheader('% Difference in Test Before & After Treatment')
+st.plotly_chart(fig_diff,use_container_width=True, config = config)
+st.divider()
+############################## TEST DIFF PLOT ##############################
