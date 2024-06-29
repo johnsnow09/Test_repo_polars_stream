@@ -108,7 +108,7 @@ with st.sidebar:
 
 
 
-st.subheader('Test Report Selected data')
+st.subheader('Test Report Selected data', divider='rainbow')
 st.dataframe(Filtered_Data.to_pandas(), width=1800)
 
 
