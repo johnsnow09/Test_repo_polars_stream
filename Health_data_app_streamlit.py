@@ -71,6 +71,84 @@ TSH_only_combined = load_tsh_data()
 
 
 
+
+############################## CREATING TEST DATA MAPPING ##############################
+test_list = ["BLOOD UREA","BLOOD UREA NITROGEN (BUN)","SERUM CREATININE",
+               "SERUM URIC ACID","UREA / CREATININE RATIO","BUN / CREATININE RATIO",
+               "INORGANIC PHOSPHORUS","eGFR",
+               "SODIUM (Na+)","POTASSIUM (K+)","CHLORIDE(Cl-)",
+               "TOTAL CALCIUM (Ca)","IONIZED CALCIUM","NON-IONIZED CALCIUM","pH.",
+               "TOTAL CHOLESTEROL SERUM","TRIGLYCERIDES SERUM","HIGH DENSITY LIPOPROTEIN CHOLESTEROL",
+               "VERY LOW DENSITY LIPOPROTEIN VLDL","LOW DENSITY LIPOPROTEIN","TOTAL CHOLESTEROL / HDL CHOLESTEROL",
+               "LDL / HDL CHOLESTEROL RATIO","NON- HDL CHOLESTEROL","TOTAL LIPID",
+               "BILIRUBIN TOTAL","BILIRUBIN DIRECT","BILIRUBIN INDIRECT",
+               "PROTEIN TOTAL SERUM","ALBUMIN SERUM","GLOBULIN SERUM","ALBUMIN / GLOBULIN RATIO","SGOT / AST",
+               "SGPT / ALT","SGOT/SGPT Ratio","ALKALINE PHOSPHATASE (ALP)",
+               "GAMMA GT","LDH",
+               "HbA1C (Glycosylated Hemoglobin)","BLOOD GLUCOSE FASTING,Plasma Floride","GLUCOSE IN URINE",
+               "ESTIMATED AVERAGE PLASMA GLUCOSE",
+               "TOTAL TRI IODOTHYRONINE - T3","TOTAL THYROXINE - T4","THYROID STIMULATING HORMONE - TSH",
+               "VITAMIN D 25 HYDROXY","SERUM VITAMIN B12",
+               "Hemoglobin (Hb)","Red Blood Cell Count (RBC)","RBC Distribution Width (RDW-CV)",
+               "RBC Distribution Width (RDW-SD)","Mean Corpuscular Volume (MCV)","Mean Corpuscular Haemoglobin (MCH)",
+               "Mean Corpuscular Hb Concentration(MCHC)","Haematocrit / PCV / HCT","Total Leucocyte Count (TLC)",
+               "NEUTROPHIL","LYMPHOCYTE","EOSINOPHIL","MONOCYTE","BASOPHIL","ABSOLUTE NEUTROPHIL COUNT(ANC)",
+               "ABSOLUTE LYMPHOCYTE COUNT (ALC)","ABSOLUTE EOSINOPHIL COUNT (AEC)","ABSOLUTE MONOCYTE COUNT(AMC)",
+               "ABSOLUTE BASOPHIL COUNT","Platelet Count","MPV","PDW","PCT","P-LCR","P-LCC",
+               "LIC","ABSOLUTE LIC",
+               "Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
+               "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin",
+               "VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]
+
+
+df_test_mapping = pl.DataFrame({'test' : test_list})
+
+df_test_mapping = df_test_mapping.with_columns(
+    pl.when(pl.col('test').is_in(["BLOOD UREA","BLOOD UREA NITROGEN (BUN)","SERUM CREATININE",
+               "SERUM URIC ACID","UREA / CREATININE RATIO","BUN / CREATININE RATIO",
+               "INORGANIC PHOSPHORUS","eGFR"]))
+               .then(pl.lit('KFT'))
+               .when(pl.col('test').is_in(["SODIUM (Na+)","POTASSIUM (K+)","CHLORIDE(Cl-)",
+               "TOTAL CALCIUM (Ca)","IONIZED CALCIUM","NON-IONIZED CALCIUM","pH."]))
+               .then(pl.lit('Electrolyte Profile'))
+               .when(pl.col('test').is_in(["TOTAL CHOLESTEROL SERUM","TRIGLYCERIDES SERUM","HIGH DENSITY LIPOPROTEIN CHOLESTEROL",
+               "VERY LOW DENSITY LIPOPROTEIN VLDL","LOW DENSITY LIPOPROTEIN","TOTAL CHOLESTEROL / HDL CHOLESTEROL",
+               "LDL / HDL CHOLESTEROL RATIO","NON- HDL CHOLESTEROL","TOTAL LIPID"]))
+               .then(pl.lit('Lipid Profile'))
+               .when(pl.col('test').is_in(["BILIRUBIN TOTAL","BILIRUBIN DIRECT","BILIRUBIN INDIRECT",
+               "PROTEIN TOTAL SERUM","ALBUMIN SERUM","GLOBULIN SERUM","ALBUMIN / GLOBULIN RATIO","SGOT / AST",
+               "SGPT / ALT","SGOT/SGPT Ratio","ALKALINE PHOSPHATASE (ALP)",
+               "GAMMA GT","LDH"]))
+               .then(pl.lit('LFT'))
+               .when(pl.col('test').is_in(["HbA1C (Glycosylated Hemoglobin)","BLOOD GLUCOSE FASTING,Plasma Floride","GLUCOSE IN URINE",
+               "ESTIMATED AVERAGE PLASMA GLUCOSE"]))
+               .then(pl.lit('Diabetes Profile'))
+               .when(pl.col('test').is_in(["TOTAL TRI IODOTHYRONINE - T3","TOTAL THYROXINE - T4","THYROID STIMULATING HORMONE - TSH"]))
+               .then(pl.lit('Thyroid Profile'))
+               .when(pl.col('test').is_in(["VITAMIN D 25 HYDROXY","SERUM VITAMIN B12"]))
+               .then(pl.lit('Vitamin Profile'))
+               .when(pl.col('test').is_in(["Hemoglobin (Hb)","Red Blood Cell Count (RBC)","RBC Distribution Width (RDW-CV)",
+               "RBC Distribution Width (RDW-SD)","Mean Corpuscular Volume (MCV)","Mean Corpuscular Haemoglobin (MCH)",
+               "Mean Corpuscular Hb Concentration(MCHC)","Haematocrit / PCV / HCT","Total Leucocyte Count (TLC)"]))
+               .then(pl.lit('CBC'))
+               .when(pl.col('test').is_in(["NEUTROPHIL","LYMPHOCYTE","EOSINOPHIL","MONOCYTE","BASOPHIL","ABSOLUTE NEUTROPHIL COUNT(ANC)",
+               "ABSOLUTE LYMPHOCYTE COUNT (ALC)","ABSOLUTE EOSINOPHIL COUNT (AEC)","ABSOLUTE MONOCYTE COUNT(AMC)",
+               "ABSOLUTE BASOPHIL COUNT","Platelet Count","MPV","PDW","PCT","P-LCR","P-LCC",
+               "LIC","ABSOLUTE LIC"]))
+               .then(pl.lit('DLC'))
+               .when(pl.col('test').is_in(["Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
+               "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin"]))
+               .then(pl.lit('Anemia Profile'))
+               .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]))
+               .then(pl.lit('Urine Examination'))
+               .otherwise(pl.lit('Others')).alias('test_category')  
+)
+
+############################## CREATING TEST DATA MAPPING ##############################
+
+
+
+
 ############################## FIRST FILTER STATE ##############################
 
 with st.sidebar:
