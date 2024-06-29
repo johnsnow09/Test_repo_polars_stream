@@ -245,6 +245,87 @@ st.plotly_chart(fig22,use_container_width=True, config = config)
 
 
 
+
+st.subheader('Test List by Category', divider='rainbow')
+############################## CATEGORY PLOT ##############################
+
+
+Category_Selected = st.selectbox(label="Select Test Category",
+                                options = df_test_mapping.select('test_category').unique(maintain_order=True).to_series().to_list(),
+                                index = 0)
+
+filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).select('test').to_series().to_list()
+Filtered_all_test_polars = df.filter(pl.col('Category').is_in(filtered_test_list))
+Filtered_all_test_df = Filtered_all_test_polars.to_pandas()
+
+Filtered_all_test_df_pivot = df_pivot.filter(pl.col('Category').is_in(filtered_test_list)).to_pandas()
+
+
+tab1, tab2 = st.tabs(["Chart", "Data Table"])
+
+with tab1:
+    on = st.toggle("Align in Multiple Columns")
+
+    if not on:
+        
+        fig_facet_catg_31 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_row="Category", 
+                            facet_col_wrap=2,facet_row_spacing=0.035)
+
+        fig_facet_catg_3 = (px.scatter(Filtered_all_test_df, 
+                        x='Date', y='Value', color = 'Color_flag', 
+                        color_discrete_sequence=["red", "green"], facet_row="Category"
+                        , facet_row_spacing=0.035 # ,facet_col_wrap=2
+                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
+                    )
+                    .add_traces(fig_facet_catg_31.data)
+                    .update_yaxes(matches=None,showticklabels=True)
+                    .update_layout(height=1100)
+                    .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+                    )
+        
+        n_categories = len(filtered_test_list)
+        for i,elem in enumerate(filtered_test_list):
+            data = Filtered_all_test_polars.filter(pl.col('Category')==elem)
+            upper = data.item(0,"Upper Range")
+            lower = data.item(0,"Lower Range")
+            # st.write(i, elem, upper, lower)
+
+            fig_facet_catg_3 = (fig_facet_catg_3.add_hline(y=upper, row=n_categories-i, line_dash="dash",line_color="red")
+                                                .add_hline(y=lower, row=n_categories-i, line_dash="dash",line_color="red"))
+
+
+
+        st.plotly_chart(fig_facet_catg_3,use_container_width=True, config = config)
+    else:
+        fig_facet_catg_1 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_col="Category", 
+                            facet_col_wrap=2,facet_row_spacing=0.035)
+    # .update_yaxes(autorange="reversed")
+
+        fig_facet_catg_2 = (px.scatter(Filtered_all_test_df, 
+                        x='Date', y='Value', color = 'Color_flag', 
+                        color_discrete_sequence=["red", "green"], facet_col="Category"
+                        ,facet_col_wrap=2, facet_row_spacing=0.035
+                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
+                    )
+                    .add_traces(fig_facet_catg_1.data)
+                    .update_yaxes(matches=None,showticklabels=True)
+                    .update_layout(height=700)
+                    .update_xaxes(matches='x')
+                    .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+                    )
+        
+        st.plotly_chart(fig_facet_catg_2,use_container_width=True, config = config)
+
+with tab2:
+    st.dataframe(Filtered_all_test_df_pivot, width=1800)
+
+############################## CATEGORY PLOT ##############################
+
+
+
+
+
+
 ############################## RAW DATA ##############################
 
 st.subheader('Complete Raw Timelined Blood Test Data', divider='rainbow')
