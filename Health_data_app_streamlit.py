@@ -133,13 +133,13 @@ fig2 = (px.scatter(plot_data,
 
 
 st.plotly_chart(fig2,use_container_width=True, config = config)
-st.divider()
+# st.divider()
 
 ############################## PLOT ##############################
 
 
 
-st.subheader('TSH only timeline data')
+st.subheader('TSH only timeline data', divider='rainbow')
 ############################## TSH PLOT ##############################
 plot_data2 = TSH_only_combined.to_pandas()
 Lower_range2 = plot_data2.iloc[0,2]
@@ -160,7 +160,7 @@ fig22 = (px.scatter(plot_data2,
 
 
 st.plotly_chart(fig22,use_container_width=True, config = config)
-st.divider()
+# st.divider()
 
 ############################## TSH PLOT ##############################
 
@@ -169,9 +169,9 @@ st.divider()
 
 ############################## RAW DATA ##############################
 
-st.subheader('Complete Raw Timelined Blood Test Data')
+st.subheader('Complete Raw Timelined Blood Test Data', divider='rainbow')
 st.dataframe(df_pivot.to_pandas(), width=1800)
-st.divider()
+# st.divider()
 ############################## RAW DATA ##############################
 
 
@@ -193,7 +193,7 @@ df_difference_bef_aftr = (df
 fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 800,
        title="Mean Difference in test Before & After Treatment").update_yaxes(autorange="reversed")
 
-st.subheader('% Difference in Test Before & After Treatment')
+st.subheader('% Difference in Test Before & After Treatment', divider='rainbow')
 st.plotly_chart(fig_diff,use_container_width=True, config = config)
 st.divider()
 ############################## TEST DIFF PLOT ##############################
