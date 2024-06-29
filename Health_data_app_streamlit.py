@@ -278,6 +278,7 @@ with tab1:
                         #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
                     )
                     .add_traces(fig_facet_catg_31.data)
+                    .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
                     .update_yaxes(matches=None,showticklabels=True)
                     .update_layout(height=1100)
                     .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
@@ -308,6 +309,7 @@ with tab1:
                         #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
                     )
                     .add_traces(fig_facet_catg_1.data)
+                    .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
                     .update_yaxes(matches=None,showticklabels=True)
                     .update_layout(height=700)
                     .update_xaxes(matches='x')
