@@ -273,8 +273,8 @@ Category_Selected = st.selectbox(label="Select Test Category",
                                 options = df_test_mapping.select('test_category').unique(maintain_order=True).to_series().to_list(),
                                 index = 0)
 
-# filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).select('test').to_series().to_list()
-filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).sort('test').get_column('test').unique(maintain_order=True).to_list()
+filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).select('test').to_series().to_list()
+# filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).sort('test').get_column('test').unique(maintain_order=True).to_list()
 Filtered_all_test_polars = df.filter(pl.col('Category').is_in(filtered_test_list))
 Filtered_all_test_df = Filtered_all_test_polars.to_pandas()
 
