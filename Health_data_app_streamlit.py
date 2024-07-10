@@ -371,7 +371,7 @@ df_difference_bef_aftr = (df
                .sort(pl.col('Diff_%'),descending=True)
         )
 
-fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 1000,
+fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 1200,
        title="Mean Difference in test Before & After Treatment").update_yaxes(autorange="reversed")
 
 st.subheader('% Difference in Test Before & After Treatment', divider='rainbow')
