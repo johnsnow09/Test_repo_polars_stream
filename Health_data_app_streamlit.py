@@ -151,6 +151,17 @@ df_test_mapping = df_test_mapping.with_columns(
 
 ############################## FIRST FILTER STATE ##############################
 
+st.markdown(
+    f'''
+        <style>
+            .sidebar .sidebar-content {{
+                width: 375px;
+            }}
+        </style>
+    ''',
+    unsafe_allow_html=True
+)
+
 with st.sidebar:
 
     st.write("This is Selection Control Panel")
@@ -191,16 +202,21 @@ with st.sidebar:
 
 
 ############################## PLOT ##############################
-plot_data = Filtered_df.to_pandas()
 
-Lower_range = plot_data.iloc[0,2]
-Upper_range = plot_data.iloc[0,3]
+    plot_data = Filtered_df.to_pandas()
 
-fig1 = px.line(plot_data, x='Date', y='Value'
+
+    Lower_range = plot_data.iloc[0,2]
+
+    Upper_range = plot_data.iloc[0,3]
+
+
+    fig1 = px.line(plot_data, x='Date', y='Value'
             #   ,labels={'status_perf_end_prop_cum':'Cumulative Default'}
               )
 
-fig2 = (px.scatter(plot_data, 
+
+    fig2 = (px.scatter(plot_data, 
                   x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
               title = f'{plot_data.iloc[0,0]} Blood Test <br><sup>(Patient - Vineet)</sup>')
               .add_traces(fig1.data)
@@ -210,7 +226,8 @@ fig2 = (px.scatter(plot_data,
               )
 
 
-st.plotly_chart(fig2,use_container_width=True, config = config)
+
+    how st.plotly_chart(fig2,use_container_width=True, config = config)
 # st.divider()
 
 ############################## PLOT ##############################
