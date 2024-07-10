@@ -338,7 +338,7 @@ with tab1:
         st.plotly_chart(fig_facet_catg_2,use_container_width=True, config = config)
 
 with tab2:
-    st.dataframe(Filtered_all_test_df_pivot, width=1800)
+    st.dataframe(Filtered_all_test_df_pivot, hide_index=True, width=1800)
 
 ############################## CATEGORY PLOT ##############################
 
@@ -350,7 +350,7 @@ with tab2:
 ############################## RAW DATA ##############################
 
 st.subheader('Complete Raw Timelined Blood Test Data', divider='rainbow')
-st.dataframe(df_pivot.to_pandas(), width=1800)
+st.dataframe(df_pivot.to_pandas(), hide_index=True, width=1800)
 # st.divider()
 ############################## RAW DATA ##############################
 
