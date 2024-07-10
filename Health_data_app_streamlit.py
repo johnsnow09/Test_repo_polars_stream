@@ -185,9 +185,9 @@ with st.sidebar:
 ############################## FILTERED DATA ##############################
 
 
-
-st.subheader('Test Report Selected data', divider='rainbow')
-st.dataframe(Filtered_Data.to_pandas(), width=1800)
+# with st.sidebar:
+  st.subheader('Test Report Selected data', divider='rainbow')
+  st.dataframe(Filtered_Data.to_pandas(), width=1800)
 
 
 ############################## PLOT ##############################
