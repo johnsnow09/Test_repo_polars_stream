@@ -198,7 +198,7 @@ with st.sidebar:
 
 # with st.sidebar:    
     st.subheader('Test Report Selected data', divider='rainbow')
-    st.dataframe(Filtered_Data.to_pandas(), width=1800)
+    st.dataframe(Filtered_Data.to_pandas().reset_index(drop=True), width=1800)
 
 
 ############################## PLOT ##############################
