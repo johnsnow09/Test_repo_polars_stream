@@ -164,7 +164,7 @@ st.markdown(
 
 with st.sidebar:
 
-    st.write("This is Selection Control Panel")
+    st.write("Single Tesst Selection Panel")
 
     # State_List = df.lazy().select(pl.col('State')).unique().collect().to_series().to_list()
     # State_List = df.collect().to_pandas()["State"].unique().tolist()
@@ -251,7 +251,7 @@ fig22 = (px.scatter(plot_data2,
               .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
               .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
-              .update_layout(height=200)
+              .update_layout(height=500)
               )
 
 
