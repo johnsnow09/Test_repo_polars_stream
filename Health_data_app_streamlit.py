@@ -227,7 +227,7 @@ with st.sidebar:
 
 
 
-    how st.plotly_chart(fig2,use_container_width=True, config = config)
+    st.plotly_chart(fig2,use_container_width=True, config = config)
 # st.divider()
 
 ############################## PLOT ##############################
