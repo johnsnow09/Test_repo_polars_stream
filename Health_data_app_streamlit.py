@@ -190,7 +190,7 @@ with st.sidebar:
 
 ############################## FILTERED DATA ##############################
 
-    Filtered_Data = df_pivot.filter(pl.col('Category') == Test_Selected)
+    Filtered_Data = df_pivot.filter(pl.col('Category') == Test_Selected).to_pandas().reset_index(drop=True)
     Filtered_df = df.filter(pl.col('Category') == Test_Selected)
 
 ############################## FILTERED DATA ##############################
@@ -198,7 +198,7 @@ with st.sidebar:
 
 # with st.sidebar:    
     st.subheader('Test Report Selected data', divider='rainbow')
-    st.dataframe(Filtered_Data.to_pandas().reset_index(drop=True, inplace=True), width=1800)
+    st.dataframe(Filtered_Data, width=1800)
 
 
 ############################## PLOT ##############################
