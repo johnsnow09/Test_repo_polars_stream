@@ -164,7 +164,7 @@ st.markdown(
 
 with st.sidebar:
 
-    st.write("Single Tesst Selection Panel")
+    st.write("Single Test Selection Panel For Comparison")
 
     # State_List = df.lazy().select(pl.col('State')).unique().collect().to_series().to_list()
     # State_List = df.collect().to_pandas()["State"].unique().tolist()
