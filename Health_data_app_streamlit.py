@@ -11,7 +11,7 @@ from datetime import date, datetime
 
 ############### Setting Configuration ###############
 
-st.set_page_config(page_title="My Health Test Results Compiled2",
+st.set_page_config(page_title="Anaylsis on Health Test Results",
                     layout='wide',
                     initial_sidebar_state="expanded")
 
