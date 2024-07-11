@@ -235,34 +235,6 @@ with st.sidebar:
 
 
 
-st.subheader('Thyroid(TSH) only timeline data', divider='rainbow')
-############################## TSH PLOT ##############################
-plot_data2 = TSH_only_combined.to_pandas()
-Lower_range2 = plot_data2.iloc[0,2]
-Upper_range2 = plot_data2.iloc[0,3]
-
-fig21 = px.line(plot_data2, x='Date', y='Value'
-            #   ,labels={'status_perf_end_prop_cum':'Cumulative Default'}
-              )
-
-fig22 = (px.scatter(plot_data2, 
-                  x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
-              title = 'TSH Blood Test <br><sup>(With More Test Results)</sup>')
-              .add_traces(fig21.data)
-              .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
-              .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
-              .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
-              .update_layout(height=350)
-              )
-
-
-st.plotly_chart(fig22,use_container_width=True, config = config)
-# st.divider()
-
-############################## TSH PLOT ##############################
-
-
-
 
 
 st.subheader('Select Test by Category', divider='rainbow')
@@ -342,6 +314,34 @@ with tab2:
     st.dataframe(Filtered_all_test_df_pivot, hide_index=True, width=1800)
 
 ############################## CATEGORY PLOT ##############################
+
+
+
+st.subheader('Thyroid(TSH) only timeline data', divider='rainbow')
+############################## TSH PLOT ##############################
+plot_data2 = TSH_only_combined.to_pandas()
+Lower_range2 = plot_data2.iloc[0,2]
+Upper_range2 = plot_data2.iloc[0,3]
+
+fig21 = px.line(plot_data2, x='Date', y='Value'
+            #   ,labels={'status_perf_end_prop_cum':'Cumulative Default'}
+              )
+
+fig22 = (px.scatter(plot_data2, 
+                  x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
+              title = 'TSH Blood Test <br><sup>(With More Test Results)</sup>')
+              .add_traces(fig21.data)
+              .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
+              .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
+              .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+              .update_layout(height=350)
+              )
+
+
+st.plotly_chart(fig22,use_container_width=True, config = config)
+# st.divider()
+
+############################## TSH PLOT ##############################
 
 
 
