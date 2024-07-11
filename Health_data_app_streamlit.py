@@ -284,9 +284,9 @@ Filtered_all_test_df_pivot = df_pivot.filter(pl.col('Category').is_in(filtered_t
 tab1, tab2 = st.tabs(["Chart", "Data Table"])
 
 with tab1:
-    on = st.toggle("Switch for Range Charts")
+    on = st.toggle("Switch for Multiple Column")
 
-    if on:
+    if not on:
         
         fig_facet_catg_31 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_row="Category", 
                             facet_col_wrap=2,facet_row_spacing=0.035)
