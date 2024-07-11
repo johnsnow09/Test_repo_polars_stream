@@ -197,7 +197,7 @@ with st.sidebar:
 
 
 # with st.sidebar:    
-    st.subheader('Test Report Selected data', divider='rainbow')
+    st.write('Test Report Selected data')
     st.dataframe(Filtered_Data, hide_index=True, width=1800)
 
 
