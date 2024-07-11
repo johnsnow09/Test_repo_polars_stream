@@ -265,7 +265,7 @@ st.plotly_chart(fig22,use_container_width=True, config = config)
 
 
 
-st.subheader('Test List by Category', divider='rainbow')
+st.subheader('Select Test by Category', divider='rainbow')
 ############################## CATEGORY PLOT ##############################
 
 
