@@ -2,9 +2,14 @@ import streamlit as st
 import pandas as pd
 import polars as pl
 from plotly import express as px
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # import re
 from datetime import date, datetime
+
+import os
+# os.chdir("V:/1. R & Python work/Python/2.AnalytixLabs Practice/Health Viny downloaded Github")
 
 # st.title('My Health Test Results Compiled')
 
@@ -252,8 +257,16 @@ Filtered_all_test_df = Filtered_all_test_polars.to_pandas()
 
 Filtered_all_test_df_pivot = df_pivot.filter(pl.col('Category').is_in(filtered_test_list)).sort('Category').to_pandas()
 
+corr_df = Filtered_all_test_df.loc[:,['Category','Value','Date']].pivot(index='Date',columns='Category',values='Value').corr()
+corr_df_full = (df.select(['Category','Value','Date'])
+ .pivot(index='Date',columns='Category',values='Value')
+ .select(pl.exclude('Date'))
+ .to_pandas().corr()
+ )
 
-tab1, tab2 = st.tabs(["Chart", "Data Table"])
+
+
+tab1, tab2, tab3, tab4 = st.tabs(["Chart", "Data Table","Correlation Chart","Correlation Table"])
 
 with tab1:
     on = st.toggle("Switch for Multiple Column")
@@ -313,7 +326,41 @@ with tab1:
 with tab2:
     st.dataframe(Filtered_all_test_df_pivot, hide_index=True, width=1800)
 
+with tab3:
+    sns.set(font_scale = .4)
+    fig_heat,ax = plt.subplots()
+    sns.heatmap(corr_df, ax=ax, annot=True, cmap = "Blues")
+    st.write(fig_heat)
+
+with tab4:
+    st.write(corr_df, hide_index=True, width=1800)
+
 ############################## CATEGORY PLOT ##############################
+
+
+
+
+
+
+############################## CORRELATION SELECTION ##############################
+
+st.subheader('Test Correlation Selection', divider='rainbow')
+Corr_Test_Selected = st.selectbox(label="Select Correlation Test",
+                                  options = Test_List,
+                                  index = Test_index)
+
+
+corr_selected = corr_df_full[corr_df_full.index.isin([Corr_Test_Selected])].melt()
+corr_selected['absolute_value'] = corr_selected.value.abs()
+corr_selected = corr_selected.sort_values('absolute_value',ascending=False)
+corr_selected = corr_selected.drop('absolute_value', axis=1)
+
+st.dataframe(corr_selected) # ,'LYMPHOCYTE'
+
+############################## CORRELATION SELECTION ##############################
+
+
+
 
 
 
