@@ -256,6 +256,8 @@ Category_Selected = st.selectbox(label="Select Test Category",
 filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).sort('test').get_column('test').unique(maintain_order=True).to_list()
 Filtered_all_test_polars = df.filter(pl.col('Category').is_in(filtered_test_list)).sort('Category')
 Filtered_all_test_df = Filtered_all_test_polars.to_pandas()
+Filtered_all_test_df['New_Category'] = Filtered_all_test_df['Category'].str.wrap(10)
+Filtered_all_test_df['New_Category'] = Filtered_all_test_df['New_Category'].str.replace("\n","<br>")
 
 Filtered_all_test_df_pivot = df_pivot.filter(pl.col('Category').is_in(filtered_test_list)).sort('Category').to_pandas()
 
@@ -275,12 +277,12 @@ with tab1:
 
     if not on:
         
-        fig_facet_catg_31 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_row="Category", 
+        fig_facet_catg_31 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_row="New_Category", 
                             facet_col_wrap=2,facet_row_spacing=0.035)
 
         fig_facet_catg_3 = (px.scatter(Filtered_all_test_df, 
                         x='Date', y='Value', color = 'Color_flag', 
-                        color_discrete_sequence=["red", "green"], facet_row="Category"
+                        color_discrete_sequence=["red", "green"], facet_row="New_Category"
                         , facet_row_spacing=0.035 # ,facet_col_wrap=2
                         #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
                     )
@@ -305,13 +307,13 @@ with tab1:
 
         st.plotly_chart(fig_facet_catg_3,use_container_width=True, config = config)
     else:
-        fig_facet_catg_1 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_col="Category", 
+        fig_facet_catg_1 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_col="New_Category", 
                             facet_col_wrap=2,facet_row_spacing=0.035)
     # .update_yaxes(autorange="reversed")
 
         fig_facet_catg_2 = (px.scatter(Filtered_all_test_df, 
                         x='Date', y='Value', color = 'Color_flag', 
-                        color_discrete_sequence=["red", "green"], facet_col="Category"
+                        color_discrete_sequence=["red", "green"], facet_col="New_Category"
                         ,facet_col_wrap=2, facet_row_spacing=0.035
                         #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
                     )
