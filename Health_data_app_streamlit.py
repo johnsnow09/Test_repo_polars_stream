@@ -339,7 +339,8 @@ with tab1:
                                 #     yanchor="bottom",
                                 #     y=1.02,
                                 #     xanchor="right",
-                                #     x=1))
+                                #     x=1)
+                                  )
                     .update_xaxes(matches='x')
                     .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
                     )
