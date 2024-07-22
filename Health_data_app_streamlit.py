@@ -202,8 +202,6 @@ with st.sidebar:
 
 
 # with st.sidebar:    
-    st.write('Test Report Selected data')
-    st.dataframe(Filtered_Data, hide_index=True, width=1800)
 
 
 ############################## PLOT ##############################
@@ -234,6 +232,10 @@ with st.sidebar:
 
 
     st.plotly_chart(fig2,use_container_width=True, config = config)
+
+    st.write('Test Report Selected data')
+    st.dataframe(Filtered_Data, hide_index=True, width=1800)
+
 # st.divider()
 
 ############################## PLOT ##############################
