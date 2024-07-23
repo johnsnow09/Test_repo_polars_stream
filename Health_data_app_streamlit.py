@@ -226,7 +226,7 @@ with st.sidebar:
               .add_hline(y=Upper_range, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range, line_width=2, line_dash="dash", line_color="red")
               .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
-              .update_layout(height=350, legend_title_text='Result Color',legend=dict(
+              .update_layout(height=350, legend_title_text='Test Result',legend=dict(
                             orientation="h",
                             yanchor="bottom",
                             y=1.02,
@@ -296,7 +296,7 @@ with tab1:
                     .add_traces(fig_facet_catg_31.data)
                     .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
                     .update_yaxes(matches=None,showticklabels=True)
-                    .update_layout(height=1100, legend_title_text='Result Color'
+                    .update_layout(height=1100, legend_title_text='Test Result'
                                 #    ,legend=dict(
                                 #     orientation="h",
                                 #     yanchor="bottom",
@@ -335,7 +335,7 @@ with tab1:
                     .add_traces(fig_facet_catg_1.data)
                     .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
                     .update_yaxes(matches=None,showticklabels=True)
-                    .update_layout(height=700, legend_title_text='Result Color'
+                    .update_layout(height=700, legend_title_text='Test Result'
                                 #    ,legend=dict(
                                 #     orientation="h",
                                 #     yanchor="bottom",
@@ -407,7 +407,7 @@ fig22 = (px.scatter(plot_data2,
               .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
               .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
-              .update_layout(height=350, legend_title_text='Result Color',legend=dict(
+              .update_layout(height=350, legend_title_text='Test Result',legend=dict(
                               orientation="h",
                               yanchor="bottom",
                               y=1.02,
