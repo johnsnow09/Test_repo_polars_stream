@@ -288,7 +288,7 @@ with tab1:
 
         fig_facet_catg_3 = (px.scatter(Filtered_all_test_df, 
                         x='Date', y='Value', color = 'Color_flag',
-                        title = f"{Category_Selected} Group of Test <br><sup>(Dash line is beginning of Treatment)</sup>",  
+                        title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is beginning of Treatment)</sup><br><sup>(Dash Horizontal line is Test limits)</sup>",  
                         color_discrete_sequence=["red", "green"], facet_row="New_Category"
                         , facet_row_spacing=0.035 # ,facet_col_wrap=2
                         #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
