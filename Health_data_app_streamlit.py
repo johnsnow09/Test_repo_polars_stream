@@ -221,7 +221,7 @@ with st.sidebar:
 
     fig2 = (px.scatter(plot_data, 
                   x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
-              title = f'{plot_data.iloc[0,0]} Blood Test <br><sup>(Patient - Vineet)</sup>')
+              title = f'{plot_data.iloc[0,0]} Blood Test <br><sup>(For - Vineet)</sup>')
               .add_traces(fig1.data)
               .add_hline(y=Upper_range, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range, line_width=2, line_dash="dash", line_color="red")
@@ -287,10 +287,11 @@ with tab1:
                             facet_col_wrap=2,facet_row_spacing=0.035)
 
         fig_facet_catg_3 = (px.scatter(Filtered_all_test_df, 
-                        x='Date', y='Value', color = 'Color_flag', 
+                        x='Date', y='Value', color = 'Color_flag',
+                        title = f"{Category_Selected} Group of Test <br><sup>(Dash line is beginning of Treatment)</sup>",  
                         color_discrete_sequence=["red", "green"], facet_row="New_Category"
                         , facet_row_spacing=0.035 # ,facet_col_wrap=2
-                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
+                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
                     )
                     .add_traces(fig_facet_catg_31.data)
                     .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
@@ -326,9 +327,10 @@ with tab1:
 
         fig_facet_catg_2 = (px.scatter(Filtered_all_test_df, 
                         x='Date', y='Value', color = 'Color_flag', 
+                        title = f"{Category_Selected} Group of Test <br><sup>(Dash line is beginning of Treatment)</sup>", 
                         color_discrete_sequence=["red", "green"], facet_col="New_Category"
                         ,facet_col_wrap=2, facet_row_spacing=0.035
-                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(Patient - Vineet)</sup>'
+                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
                     )
                     .add_traces(fig_facet_catg_1.data)
                     .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
