@@ -281,6 +281,11 @@ tab1, tab2, tab3, tab4 = st.tabs(["Chart", "Data Table","Correlation Chart","Cor
 with tab1:
     on = st.toggle("Switch for Multiple Column")
 
+    if Category_Selected in ['LFT','DLC']:
+        set_height = 2000
+    else:
+        set_height = 1100
+      
     if not on:
         
         fig_facet_catg_31 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_row="New_Category", 
@@ -296,7 +301,7 @@ with tab1:
                     .add_traces(fig_facet_catg_31.data)
                     .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
                     .update_yaxes(matches=None,showticklabels=True)
-                    .update_layout(height=1100, legend_title_text='Test Result'
+                    .update_layout(height=set_height, legend_title_text='Test Result'
                                 #    ,legend=dict(
                                 #     orientation="h",
                                 #     yanchor="bottom",
