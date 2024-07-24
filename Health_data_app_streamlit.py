@@ -401,7 +401,7 @@ with tab_corr1:
                         .query('value > .6 | value < -.6 '))
     
     fig_corr = (px.scatter(corr_plot_data, x = 'value', y = 'variable',
-                           title = f"Top Positive/Negative Correlation for {Corr_Test_Selected} with Other Test",
+                           title = f"Top Positive/Negative Correlation for [{Corr_Test_Selected}] with Other Test",
                            labels={
                      "variable": "Correlated Blood Test",
                      "value": "Correlation Value (-ve/+ve)"
