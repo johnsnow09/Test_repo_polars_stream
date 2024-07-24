@@ -386,7 +386,34 @@ corr_selected['absolute_value'] = corr_selected.value.abs()
 corr_selected = corr_selected.sort_values('absolute_value',ascending=False)
 corr_selected = corr_selected.drop('absolute_value', axis=1)
 
-st.dataframe(corr_selected) # ,'LYMPHOCYTE'
+tab_corr1, tab_corr2 = st.tabs(["Chart","Data Table"])
+
+with tab_corr1:
+    corr_plot_data = (corr_df_full[corr_df_full.index.isin([Corr_Test_Selected])]
+                        .reset_index()
+                        .melt(id_vars='index')
+                        .drop('index',axis=1))
+
+    corr_plot_data = corr_plot_data.reindex(corr_plot_data.value.abs().sort_values(ascending=False).index)
+
+    corr_plot_data = (corr_plot_data[1:]
+                        .reset_index(drop=True)
+                        .query('value > .6 | value < -.6 '))
+    
+    fig_corr = (px.scatter(corr_plot_data, x = 'value', y = 'variable',
+                           title = f"Positive Negative Correlation plot for {Corr_Test_Selected} Test",
+                           labels={
+                     "variable": "Correlated Blood Test",
+                     "value": "Correlation Value (-ve/+ve)"
+                 }).add_vline(x=0, line_width=1, line_dash="dash", line_color="green")
+                    .update_yaxes(autorange="reversed").update_layout(height=800))
+
+    st.plotly_chart(fig_corr,use_container_width=True, config = config)
+
+with tab_corr2:
+    st.dataframe(corr_selected) # ,'LYMPHOCYTE'
+
+
 
 ############################## CORRELATION SELECTION ##############################
 
