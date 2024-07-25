@@ -499,7 +499,7 @@ st.divider()
 
 st.subheader('MY INSIGHTS / OBSERVATIONS FROM DATA', divider='rainbow')
 
-st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance.    \n\
+st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance causing **Hypothyroidism**.    \n\
           \n2. **T4** is looking fine but **T3** is at `low level` across the time indicating **liver** needs correction as T4 to T3 conversion is lacking somwhere.   \n\
           \n3. **Lymphocytes** are also continuosly `high` and showing **correlation** with **T4** (this article suggest correlation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010816/).   \n\
          \n4. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
