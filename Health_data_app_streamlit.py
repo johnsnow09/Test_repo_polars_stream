@@ -496,7 +496,7 @@ st.divider()
 
 ############################## MY INSIGHTS / OBSERVATIONS FROM DATA ##############################
 
-st.subheader('INSIGHTS / OBSERVATIONS / NOTES', divider='rainbow')
+st.subheader('MY INSIGHTS / OBSERVATIONS FROM DATA', divider='rainbow')
 
 st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance.    \n\
           \n2. **T4** is looking fine but **T3** is at `low level` across the time indicating **liver** needs correction as T4 to T3 conversion is lacking somwhere.   \n\
@@ -504,4 +504,4 @@ st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance. 
          \n4. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
          \n5. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).")
 
-############################## INSIGHTS / OBSERVATIONS / NOTES ############################## 
+############################## MY INSIGHTS / OBSERVATIONS FROM DATA ############################## 
