@@ -24,6 +24,7 @@ st.set_page_config(page_title="Anaylsis on Health Test Results",
 # Setting configuration to diable plotly zoom in plots
 config = dict({'scrollZoom': False})
 
+st.header("Analytics on Blood Test Reports for Data Insights")
 ############### Setting Configuration Ends ###############
 
 
