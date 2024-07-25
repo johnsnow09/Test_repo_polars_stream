@@ -503,6 +503,7 @@ st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance c
           \n2. **T4** is looking fine but **T3** is at `low level` across the time indicating **liver** needs correction as T4 to T3 conversion is lacking somwhere.   \n\
           \n3. **Lymphocytes** are also continuosly `high` and showing **correlation** with **T4** (this article suggest correlation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010816/).   \n\
          \n4. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
-         \n5. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).")
+         \n5. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).    \n\
+         \n6. **TSH** shows ver high +ve correlation with **Hba1c** and -ve correlation with **Bilrubin Indirect** which indicates it can lead to **Diabetes** and `low` **Bilrubin Production**")
 
 ############################## MY INSIGHTS / OBSERVATIONS FROM DATA ############################## 
