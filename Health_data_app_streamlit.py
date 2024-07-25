@@ -396,7 +396,7 @@ with tab_corr1:
 
     corr_plot_data = corr_plot_data.reindex(corr_plot_data.value.abs().sort_values(ascending=False).index)
 
-    corr_plot_data = (corr_df_full[corr_df_full.index.isin([Corr_Test_Selected])]
+    corr_plot_data = (corr_plot_data[~corr_plot_data.variable.isin([Corr_Test_Selected])]
                         .reset_index(drop=True)
                         .query('value > .6 | value < -.6 '))
     
