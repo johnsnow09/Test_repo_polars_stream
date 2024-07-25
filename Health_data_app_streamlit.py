@@ -506,6 +506,7 @@ st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance c
          \n5. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).    \n\
          \n6. **TSH** shows very high +ve correlation with **Hba1c** and -ve correlation with **Bilrubin Indirect** which indicates it can lead to or already leading to    \
          **Diabetes** and `low` **Bilrubin Production** and it shows in `increasing` **hba1c** over time and `falling` **Bilrubin indirect** but `abnormal increase` in **Bilrubin direct** indicating **liver** damage.    \
-         This can lead to **stones** in the **Gall Bladder** in Future")
+         This can lead to **stones** in the **Gall Bladder** in Future    \n\
+         \n6. `Low Levels` of **Potassium** can be causing issues of **Insulin Resistance** as **Low Potassium** leads to `low` **Insulin Production** (as per this article: https://www.webmd.com/diabetes/potassium-diabetes)")
 
 ############################## MY INSIGHTS / OBSERVATIONS FROM DATA ############################## 
