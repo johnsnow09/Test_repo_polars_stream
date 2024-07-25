@@ -509,7 +509,8 @@ st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance c
          **Diabetes** and `low` **Bilrubin Production** and it shows in `increasing` **hba1c** over time and `falling` **Bilrubin indirect** but `abnormal increase` in **Bilrubin direct** indicating **liver** damage.    \
          This can lead to **stones** in the **Gall Bladder** in Future.    \n\
          \n8. `Low Levels` of **Potassium** can be causing issues of **Insulin Resistance** as **Low Potassium** leads to `low` **Insulin Production** (as per this article: https://www.webmd.com/diabetes/potassium-diabetes).    \n\
-         \n8. `Low Levels` of **Potassium & Sodium** recently indicates **dehydration** which can be the reason of weight loss. This shows electrolytes imbalance and also has `low` **Calcium**. All of this indicating possible    \
-         `low levels` of **Magnesium** in the body too.")
+         \n9. `Low Levels` of **Potassium & Sodium** recently indicates **dehydration** which can be the reason of weight loss. This shows electrolytes imbalance and also has `low` **Calcium**. All of this indicating possible    \
+         `low levels` of **Magnesium** in the body too.    \n\
+         \n10. `Bad Levels` of **eGFR** already shows **Kidney** impact indicating **dehydration** or **higher protein** or both")
 
 ############################## MY INSIGHTS / OBSERVATIONS FROM DATA ############################## 
