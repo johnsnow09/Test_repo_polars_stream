@@ -360,7 +360,7 @@ with tab2:
 with tab3:
     sns.set(font_scale = .4)
     fig_heat,ax = plt.subplots()
-    sns.heatmap(corr_df, ax=ax, annot=True, cmap = "Blues")
+    sns.heatmap(corr_df, ax=ax, annot=True, cmap = "Blues").set_title(f'Correlation Heatmap within {Category_Selected} Group Test')
     st.write(fig_heat)
 
 with tab4:
