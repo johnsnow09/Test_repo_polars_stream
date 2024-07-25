@@ -486,7 +486,22 @@ df_difference_bef_aftr = (df
 fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 1400,
        title="Mean Difference in test Before & After Treatment").update_yaxes(autorange="reversed")
 
-st.subheader('% Difference in Test Before & After Treatment', divider='rainbow')
+st.subheader('% Difference(+ve/-ve) in Test Values Before & After Treatment', divider='rainbow')
 st.plotly_chart(fig_diff,use_container_width=True, config = config)
 st.divider()
 ############################## TEST DIFF PLOT ##############################
+
+
+
+
+############################## INSIGHTS / OBSERVATIONS / NOTES ##############################
+
+st.subheader('INSIGHTS / OBSERVATIONS / NOTES', divider='rainbow')
+
+st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance.    \n\
+          \n2. **T4** is looking fine but **T3** is at `low level` across the time indicating **liver** needs correction as T4 to T3 conversion is lacking somwhere.   \n\
+          \n3. **Lymphocytes** are also continuosly `high` and showing **correlation** with **T4** (this article suggest correlation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010816/).   \n\
+         \n4. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
+         \n5. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).")
+
+############################## INSIGHTS / OBSERVATIONS / NOTES ############################## 
