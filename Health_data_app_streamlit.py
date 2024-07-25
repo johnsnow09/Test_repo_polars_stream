@@ -405,7 +405,7 @@ with tab_corr1:
                            labels={
                      "variable": "Correlated Blood Test",
                      "value": "Correlation Value (-ve/+ve)"
-                 }).add_vline(x=0, line_width=1, line_dash="dash", line_color="green")
+                 }).add_vline(x=0, line_width=1, line_dash="dash", line_color="red")
                     .update_yaxes(autorange="reversed").update_layout(height=800))
 
     st.plotly_chart(fig_corr,use_container_width=True, config = config)
