@@ -494,7 +494,7 @@ st.divider()
 
 
 
-############################## INSIGHTS / OBSERVATIONS / NOTES ##############################
+############################## MY INSIGHTS / OBSERVATIONS FROM DATA ##############################
 
 st.subheader('INSIGHTS / OBSERVATIONS / NOTES', divider='rainbow')
 
