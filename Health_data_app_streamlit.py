@@ -501,12 +501,13 @@ st.subheader('MY INSIGHTS / OBSERVATIONS FROM DATA', divider='rainbow')
 
 st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance causing **Hypothyroidism**.    \n\
           \n2. **T4** is looking fine but **T3** is at `low level` across the time indicating **liver** needs correction as T4 to T3 conversion is lacking somwhere.   \n\
-          \n3. **Lymphocytes** are also continuosly `high` and showing **correlation** with **T4** (this article suggest correlation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010816/).   \n\
-         \n4. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
-         \n5. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).    \n\
-         \n6. **TSH** shows very high +ve correlation with **Hba1c** and -ve correlation with **Bilrubin Indirect** which indicates it can lead to or already leading to    \
+          \n3. **Hypothyroidism** is causing changes in the **Lipids**.\n\
+          \n4. **Lymphocytes** are also continuosly `high` and showing **correlation** with **T4** (this article suggest correlation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010816/).   \n\
+         \n5. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
+         \n6. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).    \n\
+         \n7. **TSH** shows very high +ve correlation with **Hba1c** and -ve correlation with **Bilrubin Indirect** which indicates it can lead to or already leading to    \
          **Diabetes** and `low` **Bilrubin Production** and it shows in `increasing` **hba1c** over time and `falling` **Bilrubin indirect** but `abnormal increase` in **Bilrubin direct** indicating **liver** damage.    \
          This can lead to **stones** in the **Gall Bladder** in Future    \n\
-         \n6. `Low Levels` of **Potassium** can be causing issues of **Insulin Resistance** as **Low Potassium** leads to `low` **Insulin Production** (as per this article: https://www.webmd.com/diabetes/potassium-diabetes)")
+         \n8. `Low Levels` of **Potassium** can be causing issues of **Insulin Resistance** as **Low Potassium** leads to `low` **Insulin Production** (as per this article: https://www.webmd.com/diabetes/potassium-diabetes)")
 
 ############################## MY INSIGHTS / OBSERVATIONS FROM DATA ############################## 
