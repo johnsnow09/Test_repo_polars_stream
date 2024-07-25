@@ -271,7 +271,7 @@ corr_df = Filtered_all_test_df.loc[:,['Category','Value','Date']].pivot(index='D
 corr_df_full = (df.select(['Category','Value','Date'])
  .pivot(index='Date',columns='Category',values='Value')
  .select(pl.exclude('Date'))
- .to_pandas().corr()
+ .to_pandas().corr().round(2)
  )
 
 
