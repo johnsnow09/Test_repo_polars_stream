@@ -400,13 +400,14 @@ with tab_corr1:
                         .reset_index(drop=True)
                         .query('value > .6 | value < -.6 '))
     
-    fig_corr = (px.scatter(corr_plot_data, x = 'value', y = 'variable',
+    fig_corr = (px.scatter(corr_plot_data, x = 'value', y = 'variable', text = 'value,
                            title = f"Top Positive/Negative Correlation for [{Corr_Test_Selected}] with Other Test",
                            labels={
                      "variable": "Correlated Blood Test",
                      "value": "Correlation Value (-ve/+ve)"
                  }).add_vline(x=0, line_width=1, line_dash="dash", line_color="red")
-                    .update_yaxes(autorange="reversed").update_layout(height=800))
+                    .update_yaxes(autorange="reversed").update_layout(height=800)
+                    .update_traces(textposition="top center"))
 
     st.plotly_chart(fig_corr,use_container_width=True, config = config)
 
