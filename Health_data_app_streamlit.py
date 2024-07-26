@@ -127,7 +127,7 @@ df_test_mapping = df_test_mapping.with_columns(
                "SGPT / ALT","SGOT/SGPT Ratio","ALKALINE PHOSPHATASE (ALP)",
                "GAMMA GT","LDH"]))
                .then(pl.lit('LFT'))
-               .when(pl.col('test').is_in(["HbA1C (Glycosylated Hemoglobin)","BLOOD GLUCOSE FASTING,Plasma Floride","GLUCOSE IN URINE",
+               .when(pl.col('test').is_in(["HbA1C (Glycosylated Hemoglobin)","BLOOD GLUCOSE FASTING,Plasma Floride",
                "ESTIMATED AVERAGE PLASMA GLUCOSE"]))
                .then(pl.lit('Diabetes Profile'))
                .when(pl.col('test').is_in(["TOTAL TRI IODOTHYRONINE - T3","TOTAL THYROXINE - T4","THYROID STIMULATING HORMONE - TSH"]))
@@ -149,7 +149,7 @@ df_test_mapping = df_test_mapping.with_columns(
                .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]))
                .then(pl.lit('Urine Examination'))
                .otherwise(pl.lit('Others')).alias('test_category')  
-)
+) # "GLUCOSE IN URINE",
 
 ############################## CREATING TEST DATA MAPPING ##############################
 
