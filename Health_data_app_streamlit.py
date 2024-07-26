@@ -105,7 +105,7 @@ test_list = ["BLOOD UREA","BLOOD UREA NITROGEN (BUN)","SERUM CREATININE",
                "Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
                "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin",
                "VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS",
-                "MAGNESIUM"] # "GLUCOSE IN URINE",
+               "MAGNESIUM"] # "GLUCOSE IN URINE",
 
 
 df_test_mapping = pl.DataFrame({'test' : test_list})
@@ -149,10 +149,9 @@ df_test_mapping = df_test_mapping.with_columns(
                .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]))
                .then(pl.lit('Urine Examination'))
                .otherwise(pl.lit('Others')).alias('test_category')  # "GLUCOSE IN URINE",
-) 
+)
 
 ############################## CREATING TEST DATA MAPPING ##############################
-
 
 
 
