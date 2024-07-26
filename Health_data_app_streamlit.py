@@ -148,8 +148,8 @@ df_test_mapping = df_test_mapping.with_columns(
                .then(pl.lit('Anemia Profile'))
                .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]))
                .then(pl.lit('Urine Examination'))
-               .otherwise(pl.lit('Others')).alias('test_category')  
-) # "GLUCOSE IN URINE",
+               .otherwise(pl.lit('Others')).alias('test_category')  # "GLUCOSE IN URINE",
+) 
 
 ############################## CREATING TEST DATA MAPPING ##############################
 
