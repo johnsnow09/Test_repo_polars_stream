@@ -49,7 +49,7 @@ def v_spacer(height, sb=False) -> None:
 
 @st.cache_resource
 def load_pivot_data():
-    df_pivot = pl.read_parquet(r"df_pivot.parquet")
+    df_pivot = pl.read_parquet(r"df_pivot_r.parquet")
     return df_pivot
 
 
@@ -58,7 +58,7 @@ df_pivot = load_pivot_data()
 
 @st.cache_resource
 def load_melt_data():
-    df = pl.read_parquet(r"df_melt.parquet")
+    df = pl.read_parquet(r"df_melt_r.parquet")
     return df
 
 
@@ -91,7 +91,7 @@ test_list = ["BLOOD UREA","BLOOD UREA NITROGEN (BUN)","SERUM CREATININE",
                "PROTEIN TOTAL SERUM","ALBUMIN SERUM","GLOBULIN SERUM","ALBUMIN / GLOBULIN RATIO","SGOT / AST",
                "SGPT / ALT","SGOT/SGPT Ratio","ALKALINE PHOSPHATASE (ALP)",
                "GAMMA GT","LDH",
-               "HbA1C (Glycosylated Hemoglobin)","BLOOD GLUCOSE FASTING,Plasma Floride","GLUCOSE IN URINE",
+               "HbA1C (Glycosylated Hemoglobin)","BLOOD GLUCOSE FASTING,Plasma Floride",
                "ESTIMATED AVERAGE PLASMA GLUCOSE",
                "TOTAL TRI IODOTHYRONINE - T3","TOTAL THYROXINE - T4","THYROID STIMULATING HORMONE - TSH",
                "VITAMIN D 25 HYDROXY","SERUM VITAMIN B12",
@@ -104,7 +104,8 @@ test_list = ["BLOOD UREA","BLOOD UREA NITROGEN (BUN)","SERUM CREATININE",
                "LIC","ABSOLUTE LIC",
                "Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
                "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin",
-               "VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]
+               "VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS",
+                "MAGNESIUM"] # "GLUCOSE IN URINE",
 
 
 df_test_mapping = pl.DataFrame({'test' : test_list})
@@ -115,7 +116,7 @@ df_test_mapping = df_test_mapping.with_columns(
                "INORGANIC PHOSPHORUS","eGFR"]))
                .then(pl.lit('KFT'))
                .when(pl.col('test').is_in(["SODIUM (Na+)","POTASSIUM (K+)","CHLORIDE(Cl-)",
-               "TOTAL CALCIUM (Ca)","IONIZED CALCIUM","NON-IONIZED CALCIUM","pH."]))
+               "TOTAL CALCIUM (Ca)","IONIZED CALCIUM","NON-IONIZED CALCIUM","pH.",MAGNESIUM]))
                .then(pl.lit('Electrolyte Profile'))
                .when(pl.col('test').is_in(["TOTAL CHOLESTEROL SERUM","TRIGLYCERIDES SERUM","HIGH DENSITY LIPOPROTEIN CHOLESTEROL",
                "VERY LOW DENSITY LIPOPROTEIN VLDL","LOW DENSITY LIPOPROTEIN","TOTAL CHOLESTEROL / HDL CHOLESTEROL",
