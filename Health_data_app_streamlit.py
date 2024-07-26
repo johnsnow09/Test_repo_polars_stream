@@ -116,7 +116,7 @@ df_test_mapping = df_test_mapping.with_columns(
                "INORGANIC PHOSPHORUS","eGFR"]))
                .then(pl.lit('KFT'))
                .when(pl.col('test').is_in(["SODIUM (Na+)","POTASSIUM (K+)","CHLORIDE(Cl-)",
-               "TOTAL CALCIUM (Ca)","IONIZED CALCIUM","NON-IONIZED CALCIUM","pH.",MAGNESIUM]))
+               "TOTAL CALCIUM (Ca)","IONIZED CALCIUM","NON-IONIZED CALCIUM","pH.","MAGNESIUM"]))
                .then(pl.lit('Electrolyte Profile'))
                .when(pl.col('test').is_in(["TOTAL CHOLESTEROL SERUM","TRIGLYCERIDES SERUM","HIGH DENSITY LIPOPROTEIN CHOLESTEROL",
                "VERY LOW DENSITY LIPOPROTEIN VLDL","LOW DENSITY LIPOPROTEIN","TOTAL CHOLESTEROL / HDL CHOLESTEROL",
