@@ -283,7 +283,7 @@ with tab1:
     on = st.toggle("Switch for Multiple Column")
 
     if Category_Selected in ['LFT','DLC']:
-        set_height = 2000
+        set_height = 2300
     else:
         set_height = 1100
       
