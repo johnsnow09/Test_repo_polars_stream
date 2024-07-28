@@ -282,7 +282,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["Chart", "Data Table","Correlation Chart","Cor
 with tab1:
     on = st.toggle("Switch for Multiple Column")
 
-    if Category_Selected in ['LFT','DLC']:
+    if Category_Selected in ['LFT','DLC','Lipid Profile']:
         set_height = 2300
     else:
         set_height = 1100
