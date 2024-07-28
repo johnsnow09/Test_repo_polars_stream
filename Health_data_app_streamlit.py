@@ -187,7 +187,7 @@ with st.sidebar:
     Test_Selected = st.selectbox(label="Select Test by Name",
                                   options = Test_List,
                                   index = Test_index)
-    
+    st.write("Test Category :",str(df_test_mapping.filter(pl.col('test').is_in([Test_Selected])).get_column('test_category').to_list()[0])) # 
 
 ############################## FIRST FILTER STATE DONE ##############################
 
