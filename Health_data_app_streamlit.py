@@ -376,7 +376,7 @@ with tab4:
 
 ############################## CORRELATION SELECTION ##############################
 
-st.subheader('Test Correlation Selection', divider='rainbow')
+st.subheader('Select Test for Correlation Analytics', divider='rainbow')
 Corr_Test_Selected = st.selectbox(label="Select Correlation Test",
                                   options = Test_List,
                                   index = Test_index)
