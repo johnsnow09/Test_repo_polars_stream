@@ -251,7 +251,7 @@ with st.sidebar:
 
 
 
-st.subheader('Select Test by Category for Trend Analytics', divider='rainbow')
+st.subheader('Select Test Category for Trend Analytics', divider='rainbow')
 ############################## CATEGORY PLOT ##############################
 
 
