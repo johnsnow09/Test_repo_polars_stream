@@ -105,7 +105,8 @@ test_list = ["BLOOD UREA","BLOOD UREA NITROGEN (BUN)","SERUM CREATININE",
                "Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
                "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin",
                "VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS",
-               "MAGNESIUM"] # "GLUCOSE IN URINE",
+               "MAGNESIUM",
+               "ERYTHROCYTE SEDIMENTATION RATE (ESR)","RA - FACTOR (QUANTITATIVE)","CRP (QUANTITATIVE)","ASO QUANTITATIVE (ANTI STROPTOLYSION O)"] # "GLUCOSE IN URINE",
 
 
 df_test_mapping = pl.DataFrame({'test' : test_list})
@@ -148,6 +149,8 @@ df_test_mapping = df_test_mapping.with_columns(
                .then(pl.lit('Anemia Profile'))
                .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]))
                .then(pl.lit('Urine Examination'))
+               .when(pl.col('test).is_in(["ERYTHROCYTE SEDIMENTATION RATE (ESR)","RA - FACTOR (QUANTITATIVE)","CRP (QUANTITATIVE)","ASO QUANTITATIVE (ANTI STROPTOLYSION O)"]))
+               .then(pl.lit('Inflammatory Marker'))
                .otherwise(pl.lit('Others')).alias('test_category')  # "GLUCOSE IN URINE",
 )
 
