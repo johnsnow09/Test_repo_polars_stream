@@ -488,7 +488,7 @@ df_difference_bef_aftr = (df
                .filter(pl.col('Diff_%').is_not_nan())
                .sort(pl.col('Diff_%'),descending=True)
         )
-
+st.dataframe(df_difference_bef_aftr.to_pandas(), hide_index=True, width=1800)
 fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 1400,
        title="Mean Difference in test for Treatment & Without Treatment").update_yaxes(autorange="reversed")
 
