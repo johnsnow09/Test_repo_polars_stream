@@ -478,7 +478,7 @@ st.dataframe(df_pivot.to_pandas(), hide_index=True, width=1800)
 
 ############################## TEST DIFF PLOT ##############################
 df_difference_bef_aftr = (df
-               .with_columns(pl.when(pl.col('Date').is_between(date(2023,10,17),date(2023,6,17)))
+               .with_columns(pl.when(pl.col('Date').is_between(date(2023,10,17),date(2024,6,17)))
                .then(pl.lit("Treatment")).otherwise(pl.lit("WO Treatment")).alias("Treatment_status"))
                .group_by(['Category','Treatment_status']).agg(pl.col('Value').mean())
                .pivot(index='Category',columns='Treatment_status',values='Value')
