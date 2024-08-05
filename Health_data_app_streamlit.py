@@ -478,11 +478,11 @@ st.dataframe(df_pivot.to_pandas(), hide_index=True, width=1800)
 
 ############################## TEST DIFF PLOT ##############################
 df_difference_bef_aftr = (df
-               .with_columns(pl.when(pl.col('Date') < date(2023,10,17))
-               .then(pl.lit("Before")).otherwise(pl.lit("After")).alias("Treatment_status"))
+               .with_columns(pl.when(pl.col('Date').is_between(date(2023,10,17),date(2023,6,17)))
+               .then(pl.lit("Treatment")).otherwise(pl.lit("WO Treatment")).alias("Treatment_status"))
                .group_by(['Category','Treatment_status']).agg(pl.col('Value').mean())
                .pivot(index='Category',columns='Treatment_status',values='Value')
-               .with_columns(((pl.col('After')-pl.col('Before'))*100/pl.col('Before')).alias('Diff_%'))
+               .with_columns(((pl.col('Treatment')-pl.col('WO Treatment'))*100/pl.col('WO Treatment')).alias('Diff_%'))
                .with_columns(pl.col('Diff_%').abs().alias('Diff_%_abs'))
                .filter(pl.col('Diff_%').is_not_null())
                .filter(pl.col('Diff_%').is_not_nan())
@@ -490,7 +490,7 @@ df_difference_bef_aftr = (df
         )
 
 fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 1400,
-       title="Mean Difference in test Before & After Treatment").update_yaxes(autorange="reversed")
+       title="Mean Difference in test for Treatment & Without Treatment").update_yaxes(autorange="reversed")
 
 st.subheader('% Difference(+ve/-ve) in Test Values Before & After Treatment', divider='rainbow')
 st.plotly_chart(fig_diff,use_container_width=True, config = config)
