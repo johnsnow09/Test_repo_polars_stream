@@ -404,7 +404,8 @@ with tab_corr1:
 
     corr_plot_data = (corr_plot_data[~corr_plot_data.variable.isin([Corr_Test_Selected])]
                         .reset_index(drop=True)
-                        .query('value > .6 | value < -.6 '))
+                        .query('value > .6 | value < -.6 ')
+                        .query('value not in [-1,1]'))
     
     fig_corr = (px.scatter(corr_plot_data, x = 'value', y = 'variable', text = 'value',
                            title = f"Top Positive/Negative Correlation for [{Corr_Test_Selected}] with Other Test",
