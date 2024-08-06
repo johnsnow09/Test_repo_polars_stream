@@ -104,7 +104,7 @@ test_list = ["BLOOD UREA","BLOOD UREA NITROGEN (BUN)","SERUM CREATININE",
                "LIC","ABSOLUTE LIC",
                "Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
                "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin",
-               "VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS",
+               "VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS", "EPITHELIAL CELLS",
                "MAGNESIUM",
                "ERYTHROCYTE SEDIMENTATION RATE (ESR)","RA - FACTOR (QUANTITATIVE)","CRP (QUANTITATIVE)","ASO QUANTITATIVE (ANTI STROPTOLYSION O)"] # "GLUCOSE IN URINE",
 
@@ -147,7 +147,7 @@ df_test_mapping = df_test_mapping.with_columns(
                .when(pl.col('test').is_in(["Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
                "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin"]))
                .then(pl.lit('Anemia Profile'))
-               .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS"]))
+               .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS","EPITHELIAL CELLS"]))
                .then(pl.lit('Urine Examination'))
                .when(pl.col('test').is_in(["ERYTHROCYTE SEDIMENTATION RATE (ESR)","RA - FACTOR (QUANTITATIVE)","CRP (QUANTITATIVE)","ASO QUANTITATIVE (ANTI STROPTOLYSION O)"]))
                .then(pl.lit('Inflammatory Marker'))
