@@ -232,6 +232,7 @@ with st.sidebar:
               .add_hline(y=Upper_range, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range, line_width=2, line_dash="dash", line_color="red")
               .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+              .add_vline(x=date(2024,06,16), line_width=2, line_dash="dash", line_color="grey")
               .update_layout(height=350, legend_title_text='Test Result',legend=dict(
                             orientation="h",
                             yanchor="bottom",
@@ -299,13 +300,14 @@ with tab1:
 
         fig_facet_catg_3 = (px.scatter(Filtered_all_test_df, 
                         x='Date', y='Value', color = 'Color_flag',
-                        title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is beginning of Treatment)</sup><br><sup>(Dash Horizontal line is Test limits)</sup>",  
+                        title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is period of Treatment)</sup><br><sup>(Dash Horizontal line is Test limits)</sup>",  
                         color_discrete_sequence=["red", "green"], facet_row="New_Category"
                         , facet_row_spacing=0.035 # ,facet_col_wrap=2
                         #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
                     )
                     .add_traces(fig_facet_catg_31.data)
                     .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+                    .add_vline(x=date(2024,06,16), line_width=2, line_dash="dash", line_color="grey")
                     .update_yaxes(matches=None,showticklabels=True)
                     .update_layout(height=set_height, legend_title_text='Test Result'
                                 #    ,legend=dict(
@@ -338,7 +340,7 @@ with tab1:
 
         fig_facet_catg_2 = (px.scatter(Filtered_all_test_df, 
                         x='Date', y='Value', color = 'Color_flag', 
-                        title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is beginning of Treatment)</sup>", 
+                        title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is period of Treatment)</sup>", 
                         color_discrete_sequence=["red", "green"], facet_col="New_Category"
                         ,facet_col_wrap=2, facet_row_spacing=0.035
                         #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
@@ -447,6 +449,7 @@ fig22 = (px.scatter(plot_data2,
               .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
               .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+              .add_vline(x=date(2024,06,16), line_width=2, line_dash="dash", line_color="grey")
               .update_layout(height=350, legend_title_text='Test Result',legend=dict(
                               orientation="h",
                               yanchor="bottom",
