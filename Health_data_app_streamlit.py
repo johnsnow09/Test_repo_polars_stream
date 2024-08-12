@@ -286,7 +286,7 @@ corr_df_full = (df.select(['Category','Value','Date'])
 tab1, tab2, tab3, tab4 = st.tabs(["Chart", "Data Table","Correlation Chart","Correlation Table"])
 
 with tab1:
-    on = st.toggle("Switch for Multiple Column")
+    on = st.toggle("Switch for 2 Column Charts")
 
     if Category_Selected in ['LFT','DLC','Lipid Profile','CBC']:
         set_height = 2300
