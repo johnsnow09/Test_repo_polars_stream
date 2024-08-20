@@ -5,3 +5,4 @@ plotly==5.9.0
 datetime==5.1
 streamlit-aggrid==1.0.5
 seaborn==0.13.2
+streamlit-option-menu==0.3.13
