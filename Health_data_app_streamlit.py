@@ -9,7 +9,9 @@ import matplotlib.pyplot as plt
 from datetime import date, datetime
 
 import os
-# os.chdir("V:/1. R & Python work/Python/2.AnalytixLabs Practice/Health Viny downloaded Github")
+os.chdir("V:/1. R & Python work/Python/2.AnalytixLabs Practice/Health Viny downloaded Github")
+
+from streamlit_option_menu import option_menu
 
 # st.title('My Health Test Results Compiled')
 
@@ -23,6 +25,20 @@ st.set_page_config(page_title="Anaylsis on Health Test Results",
 
 # Setting configuration to diable plotly zoom in plots
 config = dict({'scrollZoom': False})
+
+# https://www.youtube.com/watch?v=hEPoto5xp3k
+selected_menu = option_menu(
+    menu_title=None,
+    options=["HOME","CORRELATION","TREATMENT EFFECTS","CONCLUSION"],
+    default_index=0,
+    orientation="horizontal",
+    styles={
+        "container": {"padding":"0!important","background-color":"grey"},
+        "nav-link": {"font-size":"13px",
+                     "margin":"0px",
+                     "--hover-color":"white"},
+        "nav-link-selected": {"background-color":"black"}
+    })
 
 st.header("Analytics on Blood Test Reports for Data Insights")
 ############### Setting Configuration Ends ###############
@@ -257,270 +273,293 @@ with st.sidebar:
 
 
 
-st.subheader('Select Test Category for Trend Analytics', divider='rainbow')
-############################## CATEGORY PLOT ##############################
+############################## HOME PAGE ##############################
+if selected_menu == "HOME":
+    st.subheader('Select Test Category for Trend Analytics', divider='rainbow')
+    ############################## CATEGORY PLOT ##############################
 
 
-Category_Selected = st.selectbox(label="Select Test Category",
-                                options = df_test_mapping.select('test_category').unique(maintain_order=True).to_series().to_list(),
-                                index = 0)
+    Category_Selected = st.selectbox(label="Select Test Category",
+                                    options = df_test_mapping.select('test_category').unique(maintain_order=True).to_series().to_list(),
+                                    index = 0)
 
-# filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).select('test').to_series().unique(maintain_order=True).sort().to_list()
-filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).sort('test').get_column('test').unique(maintain_order=True).to_list()
-Filtered_all_test_polars = df.filter(pl.col('Category').is_in(filtered_test_list)).sort('Category')
-Filtered_all_test_df = Filtered_all_test_polars.to_pandas()
-Filtered_all_test_df['New_Category'] = Filtered_all_test_df['Category'].str.wrap(10)
-Filtered_all_test_df['New_Category'] = Filtered_all_test_df['New_Category'].str.replace("\n","<br>")
+    # filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).select('test').to_series().unique(maintain_order=True).sort().to_list()
+    filtered_test_list = df_test_mapping.filter(pl.col('test_category') == Category_Selected).sort('test').get_column('test').unique(maintain_order=True).to_list()
+    Filtered_all_test_polars = df.filter(pl.col('Category').is_in(filtered_test_list)).sort('Category')
+    Filtered_all_test_df = Filtered_all_test_polars.to_pandas()
+    Filtered_all_test_df['New_Category'] = Filtered_all_test_df['Category'].str.wrap(10)
+    Filtered_all_test_df['New_Category'] = Filtered_all_test_df['New_Category'].str.replace("\n","<br>")
 
-Filtered_all_test_df_pivot = df_pivot.filter(pl.col('Category').is_in(filtered_test_list)).sort('Category').to_pandas()
+    Filtered_all_test_df_pivot = df_pivot.filter(pl.col('Category').is_in(filtered_test_list)).sort('Category').to_pandas()
 
-corr_df = Filtered_all_test_df.loc[:,['Category','Value','Date']].pivot(index='Date',columns='Category',values='Value').corr()
-corr_df_full = (df.select(['Category','Value','Date'])
- .pivot(index='Date',columns='Category',values='Value')
- .select(pl.exclude('Date'))
- .to_pandas().corr().round(2)
- )
+    corr_df = Filtered_all_test_df.loc[:,['Category','Value','Date']].pivot(index='Date',columns='Category',values='Value').corr()
+    corr_df_full = (df.select(['Category','Value','Date'])
+    .pivot(index='Date',columns='Category',values='Value')
+    .select(pl.exclude('Date'))
+    .to_pandas().corr().round(2)
+    )
 
-
-
-tab1, tab2, tab3, tab4 = st.tabs(["Chart", "Data Table","Correlation Chart","Correlation Table"])
-
-with tab1:
-    on = st.toggle("Switch for 2 Column Charts")
-
-    if Category_Selected in ['LFT','DLC','Lipid Profile','CBC']:
-        set_height = 2300
-    else:
-        set_height = 1100
-      
-    if not on:
-        
-        fig_facet_catg_31 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_row="New_Category", 
-                            facet_col_wrap=2,facet_row_spacing=0.035)
-
-        fig_facet_catg_3 = (px.scatter(Filtered_all_test_df, 
-                        x='Date', y='Value', color = 'Color_flag',
-                        title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is period of Treatment)</sup><br><sup>(Dash Horizontal line is Test limits)</sup>",  
-                        color_discrete_sequence=["red", "green"], facet_row="New_Category"
-                        , facet_row_spacing=0.035 # ,facet_col_wrap=2
-                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
-                    )
-                    .add_traces(fig_facet_catg_31.data)
-                    .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
-                    .add_vline(x=date(2024,6,16), line_width=2, line_dash="dash", line_color="grey")
-                    .update_yaxes(matches=None,showticklabels=True)
-                    .update_layout(height=set_height, legend_title_text='Test Result'
-                                #    ,legend=dict(
-                                #     orientation="h",
-                                #     yanchor="bottom",
-                                #     y=1.02,
-                                #     xanchor="right",
-                                #     x=1)
-                                  )
-                    .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
-                    )
-        
-        n_categories = len(filtered_test_list)
-        for i,elem in enumerate(filtered_test_list):
-            data = Filtered_all_test_polars.filter(pl.col('Category')==elem)
-            upper = data.item(0,"Upper Range")
-            lower = data.item(0,"Lower Range")
-            # st.write(i, elem, upper, lower)
-
-            fig_facet_catg_3 = (fig_facet_catg_3.add_hline(y=upper, row=n_categories-i, line_dash="dash",line_color="red")
-                                                .add_hline(y=lower, row=n_categories-i, line_dash="dash",line_color="red"))
-
-
-
-        st.plotly_chart(fig_facet_catg_3,use_container_width=True, config = config)
-    else:
-        fig_facet_catg_1 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_col="New_Category", 
-                            facet_col_wrap=2,facet_row_spacing=0.035)
-    # .update_yaxes(autorange="reversed")
-
-        fig_facet_catg_2 = (px.scatter(Filtered_all_test_df, 
-                        x='Date', y='Value', color = 'Color_flag', 
-                        title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is period of Treatment)</sup>", 
-                        color_discrete_sequence=["red", "green"], facet_col="New_Category"
-                        ,facet_col_wrap=2, facet_row_spacing=0.035
-                        #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
-                    )
-                    .add_traces(fig_facet_catg_1.data)
-                    .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
-                    .add_vline(x=date(2024,6,16), line_width=2, line_dash="dash", line_color="grey")
-                    .update_yaxes(matches=None,showticklabels=True)
-                    .update_layout(height=700, legend_title_text='Test Result'
-                                #    ,legend=dict(
-                                #     orientation="h",
-                                #     yanchor="bottom",
-                                #     y=1.02,
-                                #     xanchor="right",
-                                #     x=1)
-                                  )
-                    .update_xaxes(matches='x')
-                    .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
-                    )
-        
-        st.plotly_chart(fig_facet_catg_2,use_container_width=True, config = config)
-
-with tab2:
-    st.dataframe(Filtered_all_test_df_pivot, hide_index=True, width=1800)
-
-with tab3:
-    sns.set(font_scale = .4)
-    fig_heat,ax = plt.subplots()
-    sns.heatmap(corr_df, ax=ax, annot=True, cmap = "Blues").set_title(f'Correlation Heatmap within {Category_Selected} Group Test')
-    st.write(fig_heat)
-
-with tab4:
-    st.write(corr_df, hide_index=True, width=1800)
-
-############################## CATEGORY PLOT ##############################
-
-
-
-
-
-
-############################## CORRELATION SELECTION ##############################
-
-st.subheader('Select Test for Correlation Analytics', divider='rainbow')
-Corr_Test_Selected = st.selectbox(label="Select Correlation Test",
-                                  options = Test_List,
-                                  index = Test_index)
-
-
-corr_selected = corr_df_full[corr_df_full.index.isin([Corr_Test_Selected])].melt()
-corr_selected['absolute_value'] = corr_selected.value.abs()
-corr_selected = corr_selected.sort_values('absolute_value',ascending=False)
-corr_selected = corr_selected.drop('absolute_value', axis=1)
-
-tab_corr1, tab_corr2 = st.tabs(["Chart","Data Table"])
-
-with tab_corr1:
-    corr_plot_data = (corr_df_full[corr_df_full.index.isin([Corr_Test_Selected])]
-                        .reset_index()
-                        .melt(id_vars='index')
-                        .drop('index',axis=1))
-
-    corr_plot_data = corr_plot_data.reindex(corr_plot_data.value.abs().sort_values(ascending=False).index)
-
-    corr_plot_data = (corr_plot_data[~corr_plot_data.variable.isin([Corr_Test_Selected])]
-                        .reset_index(drop=True)
-                        .query('value > .6 | value < -.6 ')
-                        .query('value not in [-1,1]'))
+    # https://discuss.streamlit.io/t/how-can-i-use-dataframes-in-different-pages/34603
+    if "df" not in st.session_state:
+        st.session_state.df = df
     
-    fig_corr = (px.scatter(corr_plot_data, x = 'value', y = 'variable', text = 'value',
-                           title = f"Top Positive/Negative Correlation for [{Corr_Test_Selected}] with Other Test",
-                           labels={
-                     "variable": "Correlated Blood Test",
-                     "value": "Correlation Value (-ve/+ve)"
-                 }).add_vline(x=0, line_width=1, line_dash="dash", line_color="red")
-                    .update_yaxes(autorange="reversed").update_layout(height=800)
-                    .update_traces(textposition="top center"))
-
-    st.plotly_chart(fig_corr,use_container_width=True, config = config)
-
-with tab_corr2:
-    st.dataframe(corr_selected) # ,'LYMPHOCYTE'
+    if "corr_df_full" not in st.session_state:
+        st.session_state.corr_df_full = corr_df_full
 
 
 
-############################## CORRELATION SELECTION ##############################
+    tab1, tab2, tab3, tab4 = st.tabs(["Chart", "Data Table","Correlation Chart","Correlation Table"])
+
+    with tab1:
+        on = st.toggle("Switch for 2 Column Charts")
+
+        if Category_Selected in ['LFT','DLC','Lipid Profile','CBC']:
+            set_height = 2300
+        else:
+            set_height = 1100
+        
+        if not on:
+            
+            fig_facet_catg_31 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_row="New_Category", 
+                                facet_col_wrap=2,facet_row_spacing=0.035)
+
+            fig_facet_catg_3 = (px.scatter(Filtered_all_test_df, 
+                            x='Date', y='Value', color = 'Color_flag',
+                            title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is period of Treatment)</sup><br><sup>(Dash Horizontal line is Test limits)</sup>",  
+                            color_discrete_sequence=["red", "green"], facet_row="New_Category"
+                            , facet_row_spacing=0.035 # ,facet_col_wrap=2
+                            #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
+                        )
+                        .add_traces(fig_facet_catg_31.data)
+                        .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+                        .add_vline(x=date(2024,6,16), line_width=2, line_dash="dash", line_color="grey")
+                        .update_yaxes(matches=None,showticklabels=True)
+                        .update_layout(height=set_height, legend_title_text='Test Result'
+                                    #    ,legend=dict(
+                                    #     orientation="h",
+                                    #     yanchor="bottom",
+                                    #     y=1.02,
+                                    #     xanchor="right",
+                                    #     x=1)
+                                    )
+                        .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+                        )
+            
+            n_categories = len(filtered_test_list)
+            for i,elem in enumerate(filtered_test_list):
+                data = Filtered_all_test_polars.filter(pl.col('Category')==elem)
+                upper = data.item(0,"Upper Range")
+                lower = data.item(0,"Lower Range")
+                # st.write(i, elem, upper, lower)
+
+                fig_facet_catg_3 = (fig_facet_catg_3.add_hline(y=upper, row=n_categories-i, line_dash="dash",line_color="red")
+                                                    .add_hline(y=lower, row=n_categories-i, line_dash="dash",line_color="red"))
+
+
+
+            st.plotly_chart(fig_facet_catg_3,use_container_width=True, config = config)
+        else:
+            fig_facet_catg_1 = px.line(Filtered_all_test_df, x='Date', y='Value', facet_col="New_Category", 
+                                facet_col_wrap=2,facet_row_spacing=0.035)
+        # .update_yaxes(autorange="reversed")
+
+            fig_facet_catg_2 = (px.scatter(Filtered_all_test_df, 
+                            x='Date', y='Value', color = 'Color_flag', 
+                            title = f"{Category_Selected} Group of Test <br><sup>(Dash Vertical line is period of Treatment)</sup>", 
+                            color_discrete_sequence=["red", "green"], facet_col="New_Category"
+                            ,facet_col_wrap=2, facet_row_spacing=0.035
+                            #   ,title = f'{plot_data.iloc[0:3,0]}<br><sup>(For - Vineet)</sup>'
+                        )
+                        .add_traces(fig_facet_catg_1.data)
+                        .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+                        .add_vline(x=date(2024,6,16), line_width=2, line_dash="dash", line_color="grey")
+                        .update_yaxes(matches=None,showticklabels=True)
+                        .update_layout(height=700, legend_title_text='Test Result'
+                                    #    ,legend=dict(
+                                    #     orientation="h",
+                                    #     yanchor="bottom",
+                                    #     y=1.02,
+                                    #     xanchor="right",
+                                    #     x=1)
+                                    )
+                        .update_xaxes(matches='x')
+                        .for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+                        )
+            
+            st.plotly_chart(fig_facet_catg_2,use_container_width=True, config = config)
+
+    with tab2:
+        st.dataframe(Filtered_all_test_df_pivot, hide_index=True, width=1800)
+
+    with tab3:
+        sns.set(font_scale = .4)
+        fig_heat,ax = plt.subplots()
+        sns.heatmap(corr_df, ax=ax, annot=True, cmap = "Blues").set_title(f'Correlation Heatmap within {Category_Selected} Group Test')
+        st.write(fig_heat)
+
+    with tab4:
+        st.write(corr_df, hide_index=True, width=1800)
+
+    ############################## CATEGORY PLOT ##############################
+
+
+
+
+    st.subheader('Thyroid(TSH) only timeline data', divider='rainbow')
+    ############################## TSH PLOT ##############################
+    plot_data2 = TSH_only_combined.to_pandas()
+    Lower_range2 = plot_data2.iloc[0,2]
+    Upper_range2 = plot_data2.iloc[0,3]
+
+    fig21 = px.line(plot_data2, x='Date', y='Value'
+                #   ,labels={'status_perf_end_prop_cum':'Cumulative Default'}
+                )
+
+    fig22 = (px.scatter(plot_data2, 
+                    x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
+                title = 'TSH Blood Test <br><sup>(With More Test Results)</sup>')
+                .add_traces(fig21.data)
+                .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
+                .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
+                .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
+                .add_vline(x=date(2024,6,16), line_width=2, line_dash="dash", line_color="grey")
+                .update_layout(height=350, legend_title_text='Test Result',legend=dict(
+                                orientation="h",
+                                yanchor="bottom",
+                                y=1.02,
+                                xanchor="right",
+                                x=1
+                            ))
+                )
+
+
+    st.plotly_chart(fig22,use_container_width=True, config = config)
+    # st.divider()
+
+    ############################## TSH PLOT ##############################
 
 
 
 
 
 
-st.subheader('Thyroid(TSH) only timeline data', divider='rainbow')
-############################## TSH PLOT ##############################
-plot_data2 = TSH_only_combined.to_pandas()
-Lower_range2 = plot_data2.iloc[0,2]
-Upper_range2 = plot_data2.iloc[0,3]
+    ############################## RAW DATA ##############################
 
-fig21 = px.line(plot_data2, x='Date', y='Value'
-            #   ,labels={'status_perf_end_prop_cum':'Cumulative Default'}
-              )
-
-fig22 = (px.scatter(plot_data2, 
-                  x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
-              title = 'TSH Blood Test <br><sup>(With More Test Results)</sup>')
-              .add_traces(fig21.data)
-              .add_hline(y=Upper_range2, line_width=2, line_dash="dash", line_color="red")
-              .add_hline(y=Lower_range2, line_width=2, line_dash="dash", line_color="red")
-              .add_vline(x=date(2023,10,17), line_width=2, line_dash="dash", line_color="grey")
-              .add_vline(x=date(2024,6,16), line_width=2, line_dash="dash", line_color="grey")
-              .update_layout(height=350, legend_title_text='Test Result',legend=dict(
-                              orientation="h",
-                              yanchor="bottom",
-                              y=1.02,
-                              xanchor="right",
-                              x=1
-                          ))
-              )
+    st.subheader('Complete Raw Timelined Blood Test Data', divider='rainbow')
+    st.dataframe(df_pivot.to_pandas(), hide_index=True, width=1800)
+    # st.divider()
+    ############################## RAW DATA ##############################
 
 
-st.plotly_chart(fig22,use_container_width=True, config = config)
-# st.divider()
-
-############################## TSH PLOT ##############################
+############################## HOME PAGE ##############################
 
 
 
 
 
+############################## CORRELATION PAGE ##############################
+if selected_menu == "CORRELATION":
+    corr_df_full = st.session_state.corr_df_full
+    ############################## CORRELATION SELECTION ##############################
 
-############################## RAW DATA ##############################
-
-st.subheader('Complete Raw Timelined Blood Test Data', divider='rainbow')
-st.dataframe(df_pivot.to_pandas(), hide_index=True, width=1800)
-# st.divider()
-############################## RAW DATA ##############################
-
-
-
-
-############################## TEST DIFF PLOT ##############################
-df_difference_bef_aftr = (df
-               .with_columns(pl.when(pl.col('Date').is_between(date(2023,10,17),date(2024,6,17)))
-               .then(pl.lit("Treatment")).otherwise(pl.lit("WO Treatment")).alias("Treatment_status"))
-               .group_by(['Category','Treatment_status']).agg(pl.col('Value').mean())
-               .pivot(index='Category',columns='Treatment_status',values='Value')
-               .with_columns(((pl.col('Treatment')-pl.col('WO Treatment'))*100/pl.col('WO Treatment')).alias('Diff_%'))
-               .with_columns(pl.col('Diff_%').abs().alias('Diff_%_abs'))
-               .filter(pl.col('Diff_%').is_not_null())
-               .filter(pl.col('Diff_%').is_not_nan())
-               .sort(pl.col('Diff_%'),descending=True)
-        )
-
-fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 1400,
-       title="Mean Difference in test for Treatment & Without Treatment").update_yaxes(autorange="reversed")
-
-st.subheader('% Difference(+ve/-ve) in Test Values Before & After Treatment', divider='rainbow')
-st.plotly_chart(fig_diff,use_container_width=True, config = config)
-st.divider()
-############################## TEST DIFF PLOT ##############################
+    st.subheader('Select Test for Correlation Analytics', divider='rainbow')
+    Corr_Test_Selected = st.selectbox(label="Select Correlation Test",
+                                    options = Test_List,
+                                    index = Test_index)
 
 
+    corr_selected = corr_df_full[corr_df_full.index.isin([Corr_Test_Selected])].melt()
+    corr_selected['absolute_value'] = corr_selected.value.abs()
+    corr_selected = corr_selected.sort_values('absolute_value',ascending=False)
+    corr_selected = corr_selected.drop('absolute_value', axis=1)
+
+    tab_corr1, tab_corr2 = st.tabs(["Chart","Data Table"])
+
+    with tab_corr1:
+        corr_plot_data = (corr_df_full[corr_df_full.index.isin([Corr_Test_Selected])]
+                            .reset_index()
+                            .melt(id_vars='index')
+                            .drop('index',axis=1))
+
+        corr_plot_data = corr_plot_data.reindex(corr_plot_data.value.abs().sort_values(ascending=False).index)
+
+        corr_plot_data = (corr_plot_data[~corr_plot_data.variable.isin([Corr_Test_Selected])]
+                            .reset_index(drop=True)
+                            .query('value > .6 | value < -.6 ')
+                            .query('value not in [-1,1]'))
+        
+        fig_corr = (px.scatter(corr_plot_data, x = 'value', y = 'variable', text = 'value',
+                            title = f"Top Positive/Negative Correlation for [{Corr_Test_Selected}] with Other Test",
+                            labels={
+                        "variable": "Correlated Blood Test",
+                        "value": "Correlation Value (-ve/+ve)"
+                    }).add_vline(x=0, line_width=1, line_dash="dash", line_color="red")
+                        .update_yaxes(autorange="reversed").update_layout(height=800)
+                        .update_traces(textposition="top center"))
+
+        st.plotly_chart(fig_corr,use_container_width=True, config = config)
+
+    with tab_corr2:
+        st.dataframe(corr_selected) # ,'LYMPHOCYTE'
 
 
-############################## MY INSIGHTS / OBSERVATIONS FROM DATA ##############################
 
-st.subheader('MY INSIGHTS / OBSERVATIONS FROM DATA', divider='rainbow')
+    ############################## CORRELATION SELECTION ##############################
+############################## CORRELATION PAGE ##############################
 
-st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance causing **Hypothyroidism**.    \n\
-          \n2. **T4** is looking fine but **T3** is at `low level` across the time indicating **liver** needs correction as T4 to T3 conversion is lacking somwhere.   \n\
-          \n3. **Hypothyroidism** is causing changes in the **Lipids**.\n\
-          \n4. **Lymphocytes** are also continuosly `high` and showing **correlation** with **T4** (this article suggest correlation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010816/).   \n\
-         \n5. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
-         \n6. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).    \n\
-         \n7. **TSH** shows very high +ve correlation with **Hba1c** and -ve correlation with **Bilrubin Indirect** which indicates it can lead to or already leading to    \
-         **Diabetes** and `low` **Bilrubin Production** and it shows in `increasing` **hba1c** over time and `falling` **Bilrubin indirect** but `abnormal increase` in **Bilrubin direct** indicating **liver** damage.    \
-         This can lead to **stones** in the **Gall Bladder** in Future.    \n\
-         \n8. `Low Levels` of **Potassium** can be causing issues of **Insulin Resistance** as **Low Potassium** leads to `low` **Insulin Production** (as per this article: https://www.webmd.com/diabetes/potassium-diabetes).    \n\
-         \n9. `Low Levels` of **Potassium & Sodium** recently indicates **dehydration** which can be the reason of weight loss. This shows electrolytes imbalance and also has `low` **Calcium**. All of this indicating possible    \
-         `low levels` of **Magnesium** in the body too.    \n\
-         \n10. `Bad Levels` of **eGFR** already shows **Kidney** impact indicating **dehydration** or **higher protein** or both")
 
-############################## MY INSIGHTS / OBSERVATIONS FROM DATA ############################## 
+
+
+
+
+############################## TREATMENT EFFECTS PAGE ##############################
+if selected_menu == "TREATMENT EFFECTS":
+    df = st.session_state.df
+    ############################## TEST DIFF PLOT ##############################
+    df_difference_bef_aftr = (df
+                .with_columns(pl.when(pl.col('Date').is_between(date(2023,10,17),date(2024,6,17)))
+                .then(pl.lit("Treatment")).otherwise(pl.lit("WO Treatment")).alias("Treatment_status"))
+                .group_by(['Category','Treatment_status']).agg(pl.col('Value').mean())
+                .pivot(index='Category',columns='Treatment_status',values='Value')
+                .with_columns(((pl.col('Treatment')-pl.col('WO Treatment'))*100/pl.col('WO Treatment')).alias('Diff_%'))
+                .with_columns(pl.col('Diff_%').abs().alias('Diff_%_abs'))
+                .filter(pl.col('Diff_%').is_not_null())
+                .filter(pl.col('Diff_%').is_not_nan())
+                .sort(pl.col('Diff_%'),descending=True)
+            )
+
+    fig_diff = px.bar(df_difference_bef_aftr.to_pandas(), y='Category',x='Diff_%', height = 1400,
+        title="Mean Difference in test for Treatment & Without Treatment").update_yaxes(autorange="reversed")
+
+    st.subheader('% Difference(+ve/-ve) in Test Values Before & After Treatment', divider='rainbow')
+    st.plotly_chart(fig_diff,use_container_width=True, config = config)
+    st.divider()
+    ############################## TEST DIFF PLOT ##############################
+############################## TREATMENT EFFECTS PAGE ##############################
+
+
+
+
+
+############################## CONCLUSION PAGE ##############################
+if selected_menu == "CONCLUSION":
+    ############################## MY INSIGHTS / OBSERVATIONS FROM DATA ##############################
+
+    st.subheader('MY INSIGHTS / OBSERVATIONS FROM DATA', divider='rainbow')
+
+    st.write("\n1. **Thyroid - TSH** is continuously **high** except in 2 instance causing **Hypothyroidism**.    \n\
+            \n2. **T4** is looking fine but **T3** is at `low level` across the time indicating **liver** needs correction as T4 to T3 conversion is lacking somwhere.   \n\
+            \n3. **Hypothyroidism** is causing changes in the **Lipids**.\n\
+            \n4. **Lymphocytes** are also continuosly `high` and showing **correlation** with **T4** (this article suggest correlation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010816/).   \n\
+            \n5. **Chlorine** is also at `higher range` continuosly and **cholride** is also responsible for **iodine** absorbtion cutoff which can also lead to **Hypothyroidism**.   \n\
+            \n6. **Cholride** shows **correlation** with **lymphocytes** (correlation research report proof https://pubmed.ncbi.nlm.nih.gov/7687269/).    \n\
+            \n7. **TSH** shows very high +ve correlation with **Hba1c** and -ve correlation with **Bilrubin Indirect** which indicates it can lead to or already leading to    \
+            **Diabetes** and `low` **Bilrubin Production** and it shows in `increasing` **hba1c** over time and `falling` **Bilrubin indirect** but `abnormal increase` in **Bilrubin direct** indicating **liver** damage.    \
+            This can lead to **stones** in the **Gall Bladder** in Future.    \n\
+            \n8. `Low Levels` of **Potassium** can be causing issues of **Insulin Resistance** as **Low Potassium** leads to `low` **Insulin Production** (as per this article: https://www.webmd.com/diabetes/potassium-diabetes).    \n\
+            \n9. `Low Levels` of **Potassium & Sodium** recently indicates **dehydration** which can be the reason of weight loss. This shows electrolytes imbalance and also has `low` **Calcium**. All of this indicating possible    \
+            `low levels` of **Magnesium** in the body too.    \n\
+            \n10. `Bad Levels` of **eGFR** already shows **Kidney** impact indicating **dehydration** or **higher protein** or both")
+
+    ############################## MY INSIGHTS / OBSERVATIONS FROM DATA ############################## 
+############################## CONCLUSION PAGE ##############################
