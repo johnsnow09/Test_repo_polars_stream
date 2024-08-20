@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from datetime import date, datetime
 
 import os
-os.chdir("V:/1. R & Python work/Python/2.AnalytixLabs Practice/Health Viny downloaded Github")
+# os.chdir("V:/1. R & Python work/Python/2.AnalytixLabs Practice/Health Viny downloaded Github")
 
 from streamlit_option_menu import option_menu
 
