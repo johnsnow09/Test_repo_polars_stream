@@ -34,7 +34,7 @@ selected_menu = option_menu(
     orientation="horizontal",
     icons=['house', 'bar_chart', "bar_chart", 'bar_chart'], # 'cloud-upload', "list-task", 'gear'
     styles={
-        "container": {"padding":"0!important","background-color":"#D3D3D3"},
+        "container": {"padding":"0!important","background-color":"transparent"}, # "#D3D3D3"
         "nav-link": {"font-size":"13px",
                      "font-weight": "bold",
                      "margin":"0px",
