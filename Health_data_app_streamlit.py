@@ -35,6 +35,7 @@ selected_menu = option_menu(
     styles={
         "container": {"padding":"0!important","background-color":"grey"},
         "nav-link": {"font-size":"13px",
+                     "font-weight": "bold",
                      "margin":"0px",
                      "--hover-color":"white"},
         "nav-link-selected": {"background-color":"black"}
