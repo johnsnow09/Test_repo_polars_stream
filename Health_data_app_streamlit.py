@@ -32,8 +32,9 @@ selected_menu = option_menu(
     options=["HOME","CORRELATION","TREATMENT EFFECTS","CONCLUSION"],
     default_index=0,
     orientation="horizontal",
+    icons=['house', 'bar_chart', "bar_chart", 'bar_chart'], # 'cloud-upload', "list-task", 'gear'
     styles={
-        "container": {"padding":"0!important","background-color":"grey"},
+        "container": {"padding":"0!important","background-color":"#D3D3D3"},
         "nav-link": {"font-size":"13px",
                      "font-weight": "bold",
                      "margin":"0px",
