@@ -278,7 +278,7 @@ with st.sidebar:
 
 ############################## HOME PAGE ##############################
 if selected_menu == "HOME":
-    st.subheader('Test by Category for Trend Analytics', divider='rainbow')
+    st.subheader('Test by Category: Trend Analytics', divider='rainbow')
     ############################## CATEGORY PLOT ##############################
 
 
