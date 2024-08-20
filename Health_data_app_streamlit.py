@@ -26,6 +26,8 @@ st.set_page_config(page_title="Anaylsis on Health Test Results",
 # Setting configuration to diable plotly zoom in plots
 config = dict({'scrollZoom': False})
 
+st.header("Blood Test Analytics & Insights")
+
 # https://www.youtube.com/watch?v=hEPoto5xp3k
 selected_menu = option_menu(
     menu_title=None,
@@ -42,7 +44,6 @@ selected_menu = option_menu(
         "nav-link-selected": {"background-color":"black"}
     })
 
-st.header("Analytics on Blood Test Reports for Data Insights")
 ############### Setting Configuration Ends ###############
 
 
@@ -277,7 +278,7 @@ with st.sidebar:
 
 ############################## HOME PAGE ##############################
 if selected_menu == "HOME":
-    st.subheader('Select Test Category for Trend Analytics', divider='rainbow')
+    st.subheader('Test by Category for Trend Analytics', divider='rainbow')
     ############################## CATEGORY PLOT ##############################
 
 
