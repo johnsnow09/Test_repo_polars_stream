@@ -154,7 +154,7 @@ df_test_mapping = df_test_mapping.with_columns(
                .then(pl.lit('Thyroid Profile'))
                .when(pl.col('test').is_in(["VITAMIN D 25 HYDROXY","SERUM VITAMIN B12"]))
                .then(pl.lit('Vitamin Profile'))
-               .when(pl.col('test').is_in(["Hemoglobin (Hb)","Red Blood Cell Count (RBC)","RBC Distribution Width (RDW-CV)",
+               .when(pl.col('test').is_in(["Red Blood Cell Count (RBC)","RBC Distribution Width (RDW-CV)",
                "RBC Distribution Width (RDW-SD)","Mean Corpuscular Volume (MCV)","Mean Corpuscular Haemoglobin (MCH)",
                "Mean Corpuscular Hb Concentration(MCHC)","Haematocrit / PCV / HCT","Total Leucocyte Count (TLC)"]))
                .then(pl.lit('CBC'))
@@ -163,7 +163,7 @@ df_test_mapping = df_test_mapping.with_columns(
                "ABSOLUTE BASOPHIL COUNT","Platelet Count","MPV","PDW","PCT","P-LCR","P-LCC",
                "LIC","ABSOLUTE LIC"]))
                .then(pl.lit('DLC'))
-               .when(pl.col('test').is_in(["Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
+               .when(pl.col('test').is_in(["Hemoglobin (Hb)","Red Blood Cell Count (RBC)","Haematocrit / PCV / HCT",
                "Iron (fe)","UIBC","TIBC","TRANSFERRIN SERUM","% Saturation Transferrin"]))
                .then(pl.lit('Anemia Profile'))
                .when(pl.col('test').is_in(["VOLUME","pH","SPECIFIC GRAVITY","PUS CELLS","EPITHELIAL CELLS"]))
