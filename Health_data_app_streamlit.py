@@ -26,7 +26,6 @@ st.set_page_config(page_title="Anaylsis on Health Test Results",
 # Setting configuration to diable plotly zoom in plots
 config = dict({'scrollZoom': False})
 
-st.header("Blood Test Analytics & Insights")
 
 # https://www.youtube.com/watch?v=hEPoto5xp3k
 selected_menu = option_menu(
@@ -43,6 +42,8 @@ selected_menu = option_menu(
                      "--hover-color":"white"},
         "nav-link-selected": {"background-color":"black"}
     })
+
+st.header("Blood Test Analytics & Insights")
 
 ############### Setting Configuration Ends ###############
 
