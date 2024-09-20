@@ -247,7 +247,7 @@ with st.sidebar:
 
     fig2 = (px.scatter(plot_data, 
                   x='Date', y='Value', color = 'Color_flag', color_discrete_sequence=["red", "green"], 
-              title = f'{plot_data.iloc[0,0]} Blood Test <br><sup>(For - Vineet)</sup>')
+              title = f'{plot_data.iloc[0,0]} Blood Test <br><sup></sup>') # (For - Vineet)
               .add_traces(fig1.data)
               .add_hline(y=Upper_range, line_width=2, line_dash="dash", line_color="red")
               .add_hline(y=Lower_range, line_width=2, line_dash="dash", line_color="red")
